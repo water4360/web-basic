@@ -4,28 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table 실습05</title>
+    <title>Table 실습06</title>
 </head>
 <body>
     <!-- tr은 row, 최소 1개의 행td는 필수-->
+    <style>
+        table,
+        td {
+            width: 300px;
+        }
+    </style>
     <table>
-        <style>
-            table,
-            td {
-                width: 300px;
-            }
-        </style>
         <table border="1px">
             <tr>
-                <td colspan="2">1</td> 
-                <td rowspan="2">2 <br><br></td>
+                <td rowspan="2" bgcolor="#ffc0e9">4</td>
+                <td colspan="2" bgcolor="#ffd76a">1</td>
             </tr>
             <tr>
-                <td rowspan="2">4 <br><br><br></td>
-                <td><p></p><img src="iu.jpg" width="100%"></td>
+                <td><img src="iu.jpg" width="100%"></td>
+                <td rowspan="2" bgcolor="#bdffe8">2</td>
             </tr>
             <tr>
-                <td colspan="2">3</td>
+                <td colspan="2" bgcolor="#aa95ff">3</td>
             </tr>
     </table>    
 </body>
