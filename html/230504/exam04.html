@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트 제어 실습04</title>
+</head>
+
+<body>
+
+    <style>
+        .first {
+            width: 400px;
+            height: 50px;
+            background-color: #F2D194;
+            color: #3F0A73;
+
+            display: flex;
+            justify-content: center;
+        }
+
+        .second {
+            width: 400px;
+            height: 100%;
+            background-color: #D9896C;
+            color: white;
+
+            display: inline-block;
+            text-align: center;
+            /* justify-content: center;
+            align-items: center; */
+        }
+
+        .third {
+            width: 400px;
+            height: 100%;
+            background-color: #F1B3F2;
+            color: white;
+
+            display: block;
+            text-align: center;
+        }
+
+        .fourth {
+            width: 400px;
+            height: 100%;
+            background-color: #3F0A73;
+            color: white;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+    </style>
+
+    <div class="first">
+        <!-- 01 폰트컬러 -->
+        <h3>색을 변경해보자</h3>
+    </div>
+
+    <!-- 02 text-align -->
+    <div class="second">
+        <h3>정렬을 바꿔보자</h3>
+        <div class="left">
+            👈왼쪽으로 갈게요 <br>
+        </div>
+        <div class="right">
+            오른쪽으로 갈게요👉
+        </div>
+    </div>
+
+
+    <!-- 03 text-decoration  -->
+    <div class="third left">
+        <h3 style="text-align: center;">장식해보자</h3>
+
+
+        <div style="text-decoration: overline;">
+            overline <br>
+        </div>
+        <div style="text-decoration: underline;" class="right">
+            underline <br>
+        </div>
+        <div style="text-transform: uppercase;">
+            uppercase를 쓰면 다 대문자로 변하고요
+        </div>
+        <div style="text-transform: lowercase;">
+            LOWERCASE를 쓰면 다 소문자로 변해요
+        </div>
+        <div style="text-transform: capitalize;">
+            capitalize를 쓰면 첫 문자만 대문자가 됩니다
+        </div>
+        <b>섞어 쓰는 것도 가능해요</b>
+        <br>
+        overline & underline
+        <div style="text-decoration: overline underline; text-align: center;">
+            FINISH <br>
+        </div>
+    </div>
+
+    <!-- 04 text-indent -->
+    <div class="fourth">
+        <h3 style="text-align: center;">들여쓰기를 해보자</h3>
+        <div style="text-indent: 20px;">
+            text-indent에 양수를 쓰면 왼쪽 들여쓰기.
+        </div>
+        <div style="text-indent:-20px;">
+            text-indent에 음수를 쓰면 왼쪽 내어쓰기.
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트 제어 실습05</title>
+</head>
+
+<body>
+
+    <style>
+        .first {
+            width: 400px;
+            height: 100%;
+            background-color: #F2D194;
+            color: #3F0A73;
+
+            display: flex;
+            justify-content: center;
+
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .second {
+            width: 400px;
+            height: 100%;
+            background-color: #D9896C;
+            color: white;
+
+            display: inline-block;
+            text-align: center;
+            /* justify-content: center;
+            align-items: center; */
+
+            font-style: italic;
+        }
+
+        .third {
+            width: 400px;
+            height: 100%;
+            background-color: #F1B3F2;
+            color: white;
+
+            display: block;
+            text-align: center;
+        }
+
+        .fourth {
+            width: 400px;
+            height: 100%;
+            background-color: #3F0A73;
+            color: white;
+            line-height: 135%;
+            padding: 0px 5px 5px 5px;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+    </style>
+
+    <div class="first">
+        <!-- 01 font-family -->
+        <h3>looks similar, but it's not<br>
+            adapted font-family here!
+
+        </h3>
+    </div>
+
+    <!-- 02 font-style -->
+    <div class="second">
+        <h3>스타일을 바꿔보자</h3>
+        <div class="left">
+            기울어진 것 같나요? <br>
+        </div>
+        <div class="right">
+            기분탓이겠죠...
+        </div>
+    </div>
+
+
+    <!-- 03 font-size -->
+    <div class="third">
+        <h3 style="text-align: center;">서체 크기를 바꿔요</h3>
+        <div style="font-size: xx-small;">
+            xx-small 엄청 작게 만들어봤어요
+        </div>
+        <div style="font-size: medium;">
+            medium은 중간 크기
+        </div>
+        <div style="font-size: xx-large;">
+            xx-large 얘가 제일 큰 애
+        </div>
+    </div>
+
+    <!-- 04 line-height -->
+    <div class="fourth">
+        <h3 style="text-align: center;">행간조절Line-height</h3>
+        일단 행간조절 기능에 대해 알아보려면 최소 2줄 이상의 문장이 필요합니다.
+        기본 설정은 normal이며 약 110% ~ 120% 정도 됩니다. <br>
+        일반적으로는 1.6이 권장되며, 경우에 따라서는 80% 또는 200%를 사용할 수도 있습니다.
+        해당 본문은 135%가 적용되었습니다. <br>
+        개인적으로 135%를 좋아하기 때문이죠.
+        <div>
+            
+        </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

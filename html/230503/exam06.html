@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table 실습06</title>
+</head>
+<body>
+    <!-- tr은 row, 최소 1개의 행td는 필수-->
+    <style>
+        table,
+        td {
+            width: 300px;
+        }
+    </style>
+    <table>
+        <table border="1px">
+            <tr>
+                <td rowspan="2" bgcolor="#ffc0e9">4</td>
+                <td colspan="2" bgcolor="#ffd76a">1</td>
+            </tr>
+            <tr>
+                <td><img src="iu.jpg" width="100%"></td>
+                <td rowspan="2" bgcolor="#bdffe8">2</td>
+            </tr>
+            <tr>
+                <td colspan="2" bgcolor="#aa95ff">3</td>
+            </tr>
+    </table>    
+</body>
+</html>
