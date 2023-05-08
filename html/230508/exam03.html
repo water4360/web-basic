@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="kor">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soob's webforest</title>
     <style>
+        /* @font-face {
+            font-family: 'S-CoreDream-3Light';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        } */
+
+        @font-face {
+            font-family: 'SUITE-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        * {
+            /* font-family: 'S-CoreDream-3Light'; */
+            font-family: 'SUITE-Regular';
+        }
+
         #background {
+            /* position: sticky */
             position: absolute;
             left: 0;
             top: 0;
@@ -19,12 +40,23 @@
         #icon {
             filter: invert(1);
             float: left;
-            padding: 10px 20px;
+            padding: 10px 5px 10px 20px;
+        }
+
+        #soobTitle {
+            /* background-color: aqua; */
+            display: inline;
+            position: relative;
+            top: 15px;
+            left: -15px;
+            font-style: italic;
         }
 
         .topper {
             background-color: rgb(48, 48, 48);
-            opacity: 0.5;
+            width: 100%;
+
+            opacity: 0.4;
             overflow: hidden;
 
 
@@ -33,21 +65,21 @@
             width: 100%;
             left: 0;
             top: 0;
-    
+
             z-index: 1;
             color: white;
         }
 
-        .topper a {
-            float: right;
+        .topper a{
+            /* float: right; */
             color: white;
             text-align: center;
             padding: 18px 20px;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 14px;
         }
 
-        .topper a:hover {
+        .menu a:hover {
             background-color: bisque;
             color: black;
             font-weight: 700;
@@ -76,51 +108,62 @@
             text-decoration: none;
             z-index: 1;
         }
-        
-        .view a:hover {
-            background-color: bisque;
-            color: black;
-            font-weight: 700;
+
+        .content a:hover {
+            background-color: wheat;
+            color: lightslategrey;
         }
 
         #arrow {
             filter: invert(1);
             position: relative;
-            top: 4px;
+            top: 3px;
         }
-    
+
+        .menu {
+            /* background-color: aqua; */
+            display: inline;
+            position: relative;
+            float: right;
+            bottom: 5px;
+        }
 
 
     </style>
 </head>
+
 <body>
     <img id="background" src="/pinksky_forest.jpg" alt="" width="100%">
     <header>
         <nav>
             <div class="topper">
-                <div id="menu">
-                    <img id="icon" src="/assets/pine.png" alt="home-icon" width="30px">
+                <div>
+                    <a id="tree" href="#home">
+                        <img id="icon" src="/assets/pine.png" alt="home-icon" width="30px">
+                        <span id="soobTitle">Soob's webforest</span>
+                    </a>
+                </div>
+                <div class="menu">
                     <a class="active" href="#home">HOME</a>
-                    <a href="#about">ABOUT</a>
-                    <a href="#projects">PROJECTS</a>
-                    <a href="#contacts">CONTACTS</a>
+                    <a class="active" href="#about">ABOUT</a>
+                    <a class="active" href="#projects">PROJECTS</a>
+                    <a class="active" href="#contacts">CONTACTS</a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div id="content">
-        <span class="content">
-            안녕하세요, 제 이름은 <b>정수빈</b>입니다 <br>
-            저는 프론트엔드 개발자일까요?<br><br><br>
-            <a class="view" href="#projects">View my work
+    <div class="content">
+        안녕하세요, 제 이름은 <b>정수빈</b>입니다😊 <br>
+        저는 프론트엔드 개발자일까요?<br><br><br>
+        <a class="view" href="#projects">View my work
             <img id="arrow" src="/assets/arrow.png" alt="arrow" width="20px">
-            </a>
-        </span>
+        </a>
     </div>
 
-        <footer>
+    <footer>
 
-        </footer>
+    </footer>
 </body>
+
 </html>
