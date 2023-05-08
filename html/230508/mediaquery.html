@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            background-color: teal;
+        }
+        /* 500이 되면 해당 색상으로 바뀌고 */
+        @media (max-width: 500px) {
+            body {
+                background-color: antiquewhite;
+            }
+        }
+        /* 300이 되면 또 다른 색상으로 바뀌고 */
+        @media (max-width: 300px) {
+            body {
+                background-color: aquamarine;
+            }
+        }
+        /* 단, 브라우저 버전이 꽤 높아야 되므로 주의! */
+
+        
+        @media screen and (min-width: 250px){
+            li {
+                display: block;
+            }
+        }
+        @media screen and (min-width: 400px){
+            li {
+                display: inline;
+            }
+        }
+
+    </style>
+
+</head>
+<body>
+    <nav>
+        <li>아메리카노</li>
+        <li>타로버블티</li>
+        <li>마르코폴로</li>
+        <li>국화차</li>
+    </nav>
+    
+</body>
+</html>

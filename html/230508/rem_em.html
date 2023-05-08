@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반응형 웹용 rem과 em</title>
+    <style>
+        html {
+            font-size: x-large;
+        }
+
+        /* rem : "최상위" 태그에 지정된 값에 비례한 상대적인 크기 */
+        .rem {
+            font-size: 1.5rem;
+        }
+
+        #div1 {
+            font-size: 20pt;
+        }
+
+        /* em : 자신이 속한 "부모" 태그 지정값에 비례한 크기 */
+        .em {
+            font-size: 1.5em;
+        }
+
+    </style>
+</head>
+<body>
+    <p class="rem">Hello World</p>
+
+    <div id="div1">
+        <p class="em">Hello World</p>
+    </div>
+</body>
+</html>

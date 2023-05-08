@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soob's webforest</title>
+    <style>
+        #background {
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            margin: 0;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        #icon {
+            filter: invert(1);
+            float: left;
+            padding: 10px 20px;
+        }
+
+        .topper {
+            background-color: rgb(48, 48, 48);
+            opacity: 0.5;
+            overflow: hidden;
+
+
+            position: absolute;
+            display: inline;
+            width: 100%;
+            left: 0;
+            top: 0;
+    
+            z-index: 1;
+            color: white;
+        }
+
+        .topper a {
+            float: right;
+            color: white;
+            text-align: center;
+            padding: 18px 20px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .topper a:hover {
+            background-color: bisque;
+            color: black;
+            font-weight: 700;
+        }
+
+        .content {
+            /* background-color: aquamarine; */
+            display: block;
+            text-align: center;
+            position: relative;
+            top: 300px;
+
+            font-size: x-large;
+            color: white;
+        }
+
+        .view {
+            padding: 6px;
+            border: 2px solid white;
+            border-top-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            /* background-color: aqua; */
+            font-size: smaller;
+
+            color: white;
+            text-decoration: none;
+            z-index: 1;
+        }
+        
+        .view a:hover {
+            background-color: bisque;
+            color: black;
+            font-weight: 700;
+        }
+
+        #arrow {
+            filter: invert(1);
+            position: relative;
+            top: 4px;
+        }
+    
+
+
+    </style>
+</head>
+<body>
+    <img id="background" src="/pinksky_forest.jpg" alt="" width="100%">
+    <header>
+        <nav>
+            <div class="topper">
+                <div id="menu">
+                    <img id="icon" src="/assets/pine.png" alt="home-icon" width="30px">
+                    <a class="active" href="#home">HOME</a>
+                    <a href="#about">ABOUT</a>
+                    <a href="#projects">PROJECTS</a>
+                    <a href="#contacts">CONTACTS</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div id="content">
+        <span class="content">
+            안녕하세요, 제 이름은 <b>정수빈</b>입니다 <br>
+            저는 프론트엔드 개발자일까요?<br><br><br>
+            <a class="view" href="#projects">View my work
+            <img id="arrow" src="/assets/arrow.png" alt="arrow" width="20px">
+            </a>
+        </span>
+    </div>
+
+        <footer>
+
+        </footer>
+</body>
+</html>
