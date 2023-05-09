@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selected menu will be colored</title>
+
+    <style>
+
+        .outer {
+            /* background-color: aquamarine; */
+            padding: 30px;
+        }
+        
+        .menu {
+            background-color: rgb(250, 195, 185);
+            border: 1px solid transparent;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: inline-block;
+            top: 0;
+            left: 0;
+            width: 130px;
+            text-align: center;
+            font-size: x-large;
+            margin: 0px;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+        }
+
+    </style>
+
+<script src="practice04.js"></script>
+
+</head>
+<body>
+    <div class="outer">
+        <a class="menu" id="html" href="#html" onclick="markHtml()">html</a>
+        <a class="menu" id="css"  href="#css" onclick="markCss()">css</a>
+        <a class="menu" id="js"  href="#javascript" onclick="markJs()">javascript</a>
+    </div>
+</body>
+</html>

@@ -14,18 +14,39 @@
     </style>
 
     <script>
-        function changeToBlue() {
+        function changeColor(color) {
             let box = document.getElementById('box');
-            box.style.backgroundColor = 'blue';
+            box.style.backgroundColor = color;
         }
-        function changeToYellow() {
-            let box = document.getElementById('box');
-            box.style.backgroundColor = '#ffff00';
+        // function changeToBlue() {
+        //     let box = document.getElementById('box');
+        //     box.style.backgroundColor = 'blue';
+        // }
+        // function changeToYellow() {
+        //     let box = document.getElementById('box');
+        //     box.style.backgroundColor = 'yellow';
+        // }
+
+        // function showAlert2() {
+        //     alert('Hellow World');
+        // }
+        // function showAlert2() {
+        //     alert('안녕하세요');
+        // }
+
+        function showAlert(element) {
+            console.log(element.textContent);
+            alert(element.textContent);
         }
 
     </script>
 </head>
 <body>
-    <div id="box" onmouseover="changeToBlue()" onmouseleave="changeToYellow()"></div>
+    <div id="box" onmouseover="changeColor('blue')"
+    onmouseleave="changeColor('yellow')"></div>
+
+<div class="big" onclick="showAlert(this)">Hello World</div>
+<div onclick="showAlert(this)">안녕하세요</div>
+
 </body>
 </html>
