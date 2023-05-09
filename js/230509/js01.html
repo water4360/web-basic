@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 예제03-1 : external 방식이용시 스크립트 먼저 소환 -->
+    <script src="utils.js"></script>
+
+
+    <!-- 예제02 : embedded 추가 방식 -->
+    <script>
+        function hello() {
+            alert("안녕! embedded 방식으로 스크립트를 추가했어! 확인을 누르면 화면이 뜰거야.");
+        }
+
+    </script>
+
+
+
+    <!-- 예제01 : 인라인 추가 방식 -->
+    <div onclick="javascript:alert('anything')">인라인 방식 버튼이야</div>
+
+    <div onclick="javascript:hello()">스크립트 방식으로 인사할까?</div>
+
+    <!-- 예제03-2 : 그다음에 함수 호출 -->
+    <div onclick="javascript:welcome()">외부방식으로 인사할 수도 있겠지!</div>
+
+</body>
+
+</html>
