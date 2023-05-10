@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>*Jquery* 회 원 가 입</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous">
+    </script>
+
+<script>
+
+    //회원가입하기 활성화
+    function checkAllConditions() {
+
+        let isValid = true;
+
+        //아이디 유효성 체크
+        $(function checkId() {
+            if (($('#userId').val() === null)) {
+                $('#userId').innerHtml
+                alert("아이디를 입력해주세요")
+                isValid = false;
+            }
+            if (($('#userId').val()).includes("@") === false) {
+                alert("이메일 형식의 아이디가 아니에요")
+                isValid = false;
+            }
+        })
+
+
+        //비번 일치 체크
+        $(function checkPw() {
+            if ($('#userPw').val().length < 5) {
+                alert("비밀번호가 너무 짧아요. 5자리 이상으로 입력해주세요")
+                isValid = false;
+            }
+
+            if (($('#userPw').val()) !== ($('#userPw2').val())) {
+                alert("비밀번호가 일치하지 않아요")
+                isValid = false;
+            }
+        })
+
+        //성별 선택 체크
+        $(function checkGender() {
+            if (!($('input:radio').is(':checked'))) {
+                alert("성별이 선택되지 않았어요")
+                isValid = false;
+            }
+        })
+
+        //직군 선택 체크
+        $(function checkJob() {
+            if ($('#job-select option:selected').val() === '--직군을 선택하세요--') {
+                alert("직업이 선택되지 않았어요")
+                isValid = false;
+            }
+        })
+
+        //취미 선택 체크
+        $(function checkHobby() {
+
+            //하나라도 선택되었나?
+            if ($('input:checkbox').is(':checked')) {
+                if ($('input[type=checkbox]:checked').length < 3) {
+                    alert("취미를 3개 이상 선택해주세요")
+                    isValid = false;
+                }
+                //하나도 선택되지 않으면
+            } else {
+                alert("취미가 선택되지 않았어요")
+                isValid = false;
+            }
+        })
+
+        $(function welcome() {
+            if (isValid === true) {
+                alert("환영합니다! 회원가입이 완료되었습니다!")
+            }
+        })
+
+    }
+
+    // hobby : ${$('input:hobby-select').val()}
+
+    function printInfo() {
+        console.log("id");
+        console.log(`id : ${$('#userId').val()}, pw : ${$('#userPw').val()}, gender : ${$('input[name=gender]:checked').val()}, job : ${$('#job-select option:selected').val()}`);
+    }
+</script>
+
+<style>
+    #outer {
+        background-color: #f0e7ff;
+        display: inline-block;
+        padding: 0px 20px 20px 20px;
+        border-radius: 10px;
+    }
+    
+    #header {
+        background-color: #ffffff;
+        display: inline-block;
+        position: relative;
+        border-radius: 3px;
+        padding: 5px;
+        
+    }
+</style>
+
+<body>
+    <div id="outer">
+            <h2 id="header" style="color:#aa78ff">회 원 가 입</h1><br>
+            <input type="text" id="userId" placeholder="water4360@naver.com"
+                style="border: #aa78ff; border-style: solid;">
+            <br><br>
+            <input type="password" id="userPw" minlength="5" placeholder="비밀번호"
+                style="border: #aa78ff; border-style: solid;"> <br><br>
+            <input type="password" id="userPw2" minlength="5" placeholder="비밀번호 재확인"
+                style="border: #aa78ff; border-style: solid;"> <br><br>
+
+            <div id="gender" style="font-size: medium; color: #aa78ff;">
+                <input type="radio" name="gender" id="male"> 남자
+                <input type="radio" name="gender" id="female"> 여자 <br><br>
+            </div>
+
+            <select id="job-select" style="border: #aa78ff; border-style: solid; color: #5b5b5b;">
+                <option disabled="true" selected="true" style="color: #aa78ff;">--직군을 선택하세요--</option>
+                <option id="frontD">프론트엔드 개발자</option>
+                <option id="backD">백엔드 개발자</option>
+                <option id="fullD">풀스택 개발자</option>
+            </select><br><br>
+
+            <span id="hobby-select" style="font-size: medium; color: #aa78ff;">취미를 골라주세요<b>(3개 이상)</b></span> <br>
+            <input type="checkbox" name="" id="">코딩
+            <input type="checkbox" name="" id="">게임
+            <input type="checkbox" name="" id="">독서 <br>
+            <input type="checkbox" name="" id="">산책
+            <input type="checkbox" name="" id="">낚시
+            <input type="checkbox" name="" id="">수영 <br>
+            <br>
+            </span>
+
+            <input type="submit" id="join" onclick="checkAllConditions(), printInfo()" value="회원가입"></input>
+            <input type="reset" id="reset" value="취소"></input>
+        </div>
+</body>
+
+</html>
