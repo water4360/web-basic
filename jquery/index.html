@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous">
+        </script>
+
+    <script>
+        //onload
+        // 화면이 다 그려지지 않은 상태에서 먼저 나오게 하는것
+        // 이름없는 함수(익명 함수, annonymous function)
+        $(function () {
+            // alert('Hello');
+
+            // 제이쿼리에서의 셀렉터
+            // let box = document.getElementById('box');
+            // let box = $('#box');
+            $('#box').click(function () {
+                console.log('click!!');
+
+                // $(this).html('<h3>html적용해서꾸겨넣기</h3>')
+                // $(this).text('<h1>이대로꾸겨넣기</h1>')
+                $(this).append('<h5>꾸겨넣기</h5>')
+
+                $('<h5>셀렉터 뒤에</h5>').appendTo(this)
+
+                $(this).addClass('small-text')
+
+                $('<h5>셀렉터 앞에</h5>').prependTo(this)
+
+
+            }).mouseover(function () {
+                console.log('mouse over!');
+                $(this).css('background-color', '#0000ff');
+
+
+                $(this).attr('class', 'border')
+            }).mouseleave(function () {
+                console.log('mouse leave...');
+                $(this).css('background-color', '#00ff00');
+
+
+                $(this).attr('class', '')
+            })
+        });
+
+        //위와 동일하게 작동하는 코드
+        //화살표 표기법 arrow function
+        //람다식 lambda expression
+        // $(() => {
+        //     alert('hello');
+        // });
+    </script>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        .border {
+            border: 5px dotted thistle
+        }
+
+        .small-text {
+            font-size: xx-small;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Hello</h1>
+
+    <div id="box"></div>
+
+</body>
+
+</html>
