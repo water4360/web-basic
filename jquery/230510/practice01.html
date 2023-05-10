@@ -88,8 +88,8 @@
     // hobby : ${$('input:hobby-select').val()}
 
     function printInfo() {
-        console.log("id");
         console.log(`id : ${$('#userId').val()}, pw : ${$('#userPw').val()}, gender : ${$('input[name=gender]:checked').val()}, job : ${$('#job-select option:selected').val()}`);
+        console.log($('input:checkbox[name=hobby]:checked'));
     }
 </script>
 
@@ -135,12 +135,12 @@
             </select><br><br>
 
             <span id="hobby-select" style="font-size: medium; color: #aa78ff;">취미를 골라주세요<b>(3개 이상)</b></span> <br>
-            <input type="checkbox" name="" id="">코딩
-            <input type="checkbox" name="" id="">게임
-            <input type="checkbox" name="" id="">독서 <br>
-            <input type="checkbox" name="" id="">산책
-            <input type="checkbox" name="" id="">낚시
-            <input type="checkbox" name="" id="">수영 <br>
+            <input type="checkbox" name="hobby" id="">코딩
+            <input type="checkbox" name="hobby" id="">게임
+            <input type="checkbox" name="hobby" id="">독서 <br>
+            <input type="checkbox" name="hobby" id="">산책
+            <input type="checkbox" name="hobby" id="">낚시
+            <input type="checkbox" name="hobby" id="">수영 <br>
             <br>
             </span>
 
