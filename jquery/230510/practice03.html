@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload articles!</title>
+    <style>
+        @font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            font-family: 'Pretendard-Regular';
+            /* font-size: large; */
+        }
+
+        #topper {
+            background-color: rgb(92, 132, 191);
+            color: aliceblue;
+            width: 250px;
+        }
+
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous">
+        </script>
+    <script>
+        function addNews() {
+
+            //입력받는 텍스트를 news에
+            const news = $('#inputText').val();
+
+            //값이 암것도 없으면? 등록 안해요~
+            if (news === null || news.length === 0) {
+                return;
+            }
+
+            //값이 있으면 list 형태로 등록해요~
+            $('#upList').append(`<li>${news}</li>`)
+
+            // $('#inputText').val('') ''이게 머지??
+        }
+    </script>
+
+    <style>
+        #upList {
+            width: 250px;
+            padding: 10px;
+            background-color: thistle;
+        }
+
+        li {
+            padding: 10px;
+            margin: 10px;
+            background-color: white;
+            border-radius: 5px;
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="upList">
+        <div id="topper">기사를 등록해봅시다</div>
+        <li>박지성 어쩌구</li>
+        <li>안정환 어쩌구</li>
+        <li>이영표 어쩌구</li>
+    </ul>
+    <input type="text" id="inputText">
+    <input type="button" onclick="addNews()" value="등록하기">
+ 
+</body>
+
+</html>

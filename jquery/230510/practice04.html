@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>* Jquery * Selected menu will be colored</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous">
+        </script>
+
+    <style>
+        .menu {
+            background-color: rgb(250, 195, 185);
+            border: 1px solid transparent;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: inline-block;
+            top: 0;
+            left: 0;
+            width: 130px;
+            text-align: center;
+            font-size: x-large;
+            margin: 0px;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+        }
+
+        a {
+            background-color: burlywood;
+            color: white;
+        }
+
+        .selected {
+            background-color: crimson;
+        }
+        
+    </style>
+
+    <script>
+        function select(element) {
+            $('a').removeClass('selected')
+            $(element).addClass('selected');
+        }
+    </script>
+
+</head>
+
+<body>
+    <a class="menu" href="#html" onclick="select(this)">html</a>
+    <a class="menu" href="#css"  onclick="select(this)">css</a>
+    <a class="menu" href="#js"  onclick="select(this)">javascript</a>
+</body>
+
+</html>

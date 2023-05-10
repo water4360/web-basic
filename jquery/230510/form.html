@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form 실습하기</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+    integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous">
+    </script>
+
+    <script>
+        function join() {
+            const id = $('#id').val();
+            const pw = $('#pw').val();
+            console.log(`id : ${id}, pw : ${pw}`);
+            
+            //input 태그이면서 type=text인것 모두
+            // console.log($('input:text'));
+            
+            //input 태그이면서 type=text이며 name이 id인것
+            // console.log($('input:text[name=id]'));
+
+            //each뺑뺑이 돌면서 checkbox인 this애들 다 찾아서 출력해~
+            $('input:checkbox').each(function() {
+                console.log($(this));
+
+                //위내용에 덧붙여서 checked선택된 애들만
+                if ($(this).is(':checked') == true) {
+                    console.log('선택됨');
+                } else {
+                    console.log('선택되지 않음');
+                }
+            })
+        }
+    </script>
+
+</head>
+<body>
+    <form action="">
+        <input type="text" name="userName" id="name" placeholder="이름"> <br>
+        <input type="text" name="id" id="id" placeholder="id"> <br>
+        <input type="text" name="pw" id="pw" placeholder="pw"> <br>
+        <input type="checkbox" name="" id="">사과<br>
+        <input type="checkbox" name="" id="">수박<br>
+
+        <input type="button" id="btn" value="등록" onclick="join()"> <br>
+    </form>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change color what you want! * by jquery *</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous">
+        </script>
+
+
+    <script>
+        // $(function () {
+        //     $('#submit').click(function () {
+        //         if ($('#inputText').val() === null || $('#inputText').val() === '') {
+        //             console.log('클릭됨');
+        //             alert("내용이 없잖아요")
+        //         } else {
+        //             //입력받은 내용을 추가하고
+        //             $('#textHere').append(($('#inputText').val()))
+        //             let btnRed = $('<input>').attr('type', 'button').val('빨강으로')
+        //             let btnBlue = $('<input>').attr('type', 'button').val('파랑으로')
+        //             let btnGreen = $('<input>').attr('type', 'button').val('초록으로')
+        //             //버튼도 생기게 합니다
+        //             $('#buttonHere').append(btnRed, btnBlue, btnGreen);
+        //         }
+        //     })
+        // })
+
+        // 교수님 풀이
+        $(function () {
+            // 출력 화면 숨기기
+            $('#output').css('display', 'none');
+
+            $('#inputButton').click(function () {
+                //글씨 가져오기
+                let text = $('#inputText').val();
+                $('#outputText').text(text);
+
+                //다시 출력 화면 보이도록
+                $('#output').css('display', 'block')
+            });
+            //버튼 클릭 이벤트
+        });
+
+        function changeColor(colorCode, colorText) {
+            //색깔 변경
+            $('#outputText').css('color', colorCode)
+
+            //색깔 변경 알림
+            alert(`${colorText}색으로 변경합니다`)
+        }
+    </script>
+
+    <style>
+        .outer {
+            /* background-color: beige; */
+            display: inline-block;
+            position: relative;
+            left: 400px;
+
+        }
+
+        .big-text {
+            font-size: xx-large;
+            text-align: center;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <h3>값이 없으면 입력하고, 있으면 색깔 바꾸기!</h3>
+    <form>
+        <input type="text" id="inputText">
+        <input type="button" id="inputButton" value="뿅★">
+
+        <div id="output">
+            <div id="outputText" class="big-text"></div>
+            <div>
+                <input type="button" value="빨강" onclick="changeColor('red', '빨강')" />
+                <input type="button" value="파랑" onclick="changeColor('blue', '파랑')" />
+                <input type="button" value="초록" onclick="changeColor('green', '초록')" />
+            </div>
+        </div>
+        </div>
+    </form>
+</body>
+
+</html>

@@ -38,13 +38,14 @@
                 console.log('mouse over!');
                 $(this).css('background-color', '#0000ff');
 
-
+                //여기서는 class를 border로
                 $(this).attr('class', 'border')
+
             }).mouseleave(function () {
                 console.log('mouse leave...');
                 $(this).css('background-color', '#00ff00');
 
-
+                //여기서는 class를 비움으로써 초기화
                 $(this).attr('class', '')
             })
         });

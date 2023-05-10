@@ -1,10 +1,11 @@
 function enterText() {
-    let text = prompt('텍스트를 입력해주세요^ㅁ^');
+    let text = document.getElementById('inputText').value;
+    // let text = inputText;
 
     //텍스트가 0이면
-    if (text.length === 0) {
-        alert("다시 입력해주세요!");
-        enterText();
+    if (text === null || text.length === 0) {
+        alert('입력된 내용이 없어요')
+        // enterText();
     //정상 입력이면 텍스트 출력, 버튼 나타내기
     } else {
         let div = document.getElementById('textHere');
