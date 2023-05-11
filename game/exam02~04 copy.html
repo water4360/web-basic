@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <style>
+        #container {
+            position: absolute;
+            left: 100px;
+            width: 600px;
+            height: 300px;
+            border: 1px black solid;
+            overflow: hidden;
+            background-image: url('src/bg.jpeg');
+            /* background-repeat: repeat; */
+            background-size: contain;
+
+        }
+
+        /* .sliding-background {
+            z-index: -1;
+            position: absolute;
+            background: url('src/bg.jpeg');
+            background-size: 800px;
+            width: 100%;
+            height: 100%;
+            animation: slide 5s linear infinite;
+            background-position: 100%;
+
+        } */
+/* 
+        @keyframes slide {
+            from {
+                transform: translate(500px, 0);
+            }
+
+            to {
+                transform: translate(-400px, 0);
+            }
+        } */
+
+        #hari {
+            position: absolute;
+            left: 20px;
+            bottom: 15px;
+            width: 50px;
+            height: 50px;
+            border: 1px solid;
+        }
+
+        #bone {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: 0px;
+            bottom: 0px;
+        }
+
+        #score {
+            float: right;
+        }
+    </style>
+
+    <script>
+        const BONE_SPEED_MIN_EASY = 1000;
+        const BONE_SPEED_MAX_EASY = 3000;
+
+        const BONE_SPEED_MIN_HARD = 500;
+        const BONE_SPEED_MAX_HARD = 1000;
+
+        $('#gameover_screen input[type="button"]').click(function () {
+            $('#gameover_screen').hide(); // 게임 오버 화면 숨김
+            gameStart(); // 게임 재시작
+        });
+
+        $(function () {
+            const hari = $('#hari');
+            const bone = $('#bone');
+
+            // 점프 중인지?
+            let isJumping = false;
+            let score = 0;
+
+            gameStart();
+
+            function moveBackground() {
+                let position = 0;
+                setInterval(function () {
+                    $("#container").css("background-position", position-- + "px");
+                }, 10);
+            }
+
+            function gameStart() {
+                $('#gameover_screen').hide();
+
+                setKeyboardEvent();
+                boneStart();
+
+                checkGameOver();
+                moveBackground()
+            }
+
+            function isColliding(el1, el2) {
+                const rect1 = el1.getBoundingClientRect();
+                const rect2 = el2.getBoundingClientRect();
+
+                return !(
+                    rect1.bottom < rect2.top ||
+                    rect1.top > rect2.bottom ||
+                    rect1.right < rect2.left ||
+                    rect1.left > rect2.right
+                );
+            }
+
+            //   function checkGameOver() {
+            //     setInterval(function () {
+            //       if (isColliding(hari[0], bone[0])) {
+            //         hari.stop();
+            //         bone.stop();
+            //       }
+
+            //     }, 1000 / 60);
+            //   }
+
+            //copilot 추천
+            function checkGameOver() {
+                setInterval(function () {
+                    const isGameOver = isColliding(hari[0], bone[0]);
+                    if (isGameOver) {
+                        hari.stop();
+                        bone.stop();
+                        $('#gameover_screen').show();
+                    }
+                }, 1000 / 60);
+            }
+
+            function getRandomNumber(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function boneStart() {
+                // 속도 조절
+                const speed = getRandomNumber(1000, 3000);
+
+                // 적이 오른쪽에서 왼쪽으로 이동
+                bone.animate(
+                    { right: '700px' },
+                    speed,
+                    'linear',
+                    function () {
+                        // 점수 올리자
+                        score += 100;
+                        updateScore(score);
+
+                        // 적 리셋
+                        bone.css('right', '-50px');
+                        boneStart();
+                    });
+            }
+
+            function updateScore(score) {
+                $('#score').text(score);
+            }
+
+            function jump() {
+                isJumping = true;
+                hari.animate({ bottom: '+=50px' })
+                    .animate({ bottom: '-=50px' }, function () {
+                        isJumping = false;
+                    });
+            }
+
+            // 키보드 이벤트 정의
+            function setKeyboardEvent() {
+
+                $('html').keydown(function (e) {
+                    switch (e.key) {
+                        case 'ArrowLeft':
+                            moveLeft();
+                            break;
+                        case 'ArrowRight':
+                            moveRight();
+                            break;
+                        case ' ': //spacebar
+                            if (!isJumping) {
+                                jump();
+                            }
+                            break;
+                    }
+                    console.log(e.key);
+                })
+
+                function moveLeft() {
+                    hari.animate({ left: '-=10px' }, 0);
+                    if (hari.position().left < 0) {
+                        hari.animate({ left: '+=10px' }, 0);
+                    }
+
+                    //왼쪽벽에 닿는지
+                    const hariLeftMargin = hari.position().left;
+                    if (hariLeftMargin < 0) {
+                        hari.animate({ left: '+=10px' }, 0);
+                    }
+                }
+
+                function moveRight() {
+                    hari.animate({ left: '+=10px' }, 0);
+                    //1번
+                    if (hari.position().left > 350) {
+                        hari.animate({ left: '-=10px' }, 0);
+                    }
+
+                    //오른쪽벽에 닿는지
+                    const hariRightMargin = hari.position().left;
+                    if (hariRightMargin > container.width() - hari.width()) {
+                        hari.animate({ left: '-=10px' }, 0);
+                    }
+                }
+                function jump() {
+                    isJumping = true
+                    hari.animate({ bottom: '+=60px' })
+                        .animate({ bottom: '-=60px' }, function () {
+                            isJumping = false
+                        }); //합쳐줬음
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <div class="sliding-background"></div>
+        <img id="hari" src="src/walking-hari.gif" alt="">
+
+        <img id="bone" src="src/bone.png" alt="">
+
+        <div id="gameover_screen">
+            GAME OVER
+            <input type="button" onclick="window.location.reload();" value="다시하기">
+        </div>
+
+        <div id="score">0</div>
+    </div>
+</body>
+
+</html>
