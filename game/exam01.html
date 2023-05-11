@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Move Character</title>
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-    crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous">
+        </script>
 
     <style>
         #container {
@@ -19,27 +20,112 @@
 
         #meong {
             position: absolute;
-            width: 60px;
-            height: 60px;
-            left: 0px;
+            width: 50px;
+            height: 50px;
+            left: 100px;
             bottom: 100px;
             border: 1px solid coral;
+            display: none;
         }
-
     </style>
 
     <script>
-        $(function(){
-            $('html').keydown(function () {
-                console.log('이동!!');
+        $(function () {
+            const meong = $('#meong');
+            const container = $('#container');
+            let count = 3;
+
+            gameStart();
+
+
+            $('html').keydown(function (e) {
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        moveLeft();
+                        break;
+                    case 'ArrowRight':
+                        moveRight();
+                        break;
+                    case 'ArrowUp':
+                        moveUp();
+                        break;
+                    case 'ArrowDown':
+                        moveDown();
+                        break;
+                }
+                console.log(e.key);
             })
-        })
+
+
+            function gameStart() {
+                countDown();
+
+                //3초 있다가 나오기
+                setTimeout(function () {
+                    meong.show();
+                    gameStart();
+                }, 3000);
+            }
+
+            //1초마다 로그 기록남기기
+            function countDown() {
+                let timer = setInterval(function () {
+                    console.log(count--);
+               
+                if (count <= 0) {
+                    //인터벌 취소
+                    clearInterval(timer);
+                }
+            }, 1000);
+
+            }
+
+
+            function moveLeft() {
+                meong.animate({ left: '-=10px' }, 0);
+                //1번
+                // if (meong.position().left < 0) {
+                //     meong.animate({ left: '+=10px' }, 0);
+                // }
+
+                //2번
+                const meongLeftMargin
+                    = meong.css('left').replace('px', '') * 1
+
+                if (meongLeftMargin < 0) {
+                    meong.animate({ left: '+=10px' }, 0);
+                }
+
+
+            }
+
+            function moveRight() {
+                meong.animate({ left: '+=10px' }, 0);
+                //1번
+                // if (meong.position().left > 350) {
+                //     meong.animate({ left: '-=10px' }, 0);
+                // }
+
+                //2번
+                const meongRightMargin
+                    = meong.css('left').replace('px', '') * 1
+
+                //오른쪽벽에 닿았는지
+                if (meongRightMargin > container.width() - meong.width()) {
+                    meong.animate({ left: '-=10px' }, 0);
+                }
+
+            }
+        });
+
     </script>
 </head>
+
 <body>
     <div id="container">
         <img id="meong" src="src/doggy.png" alt="">
     </div>
-    
+
 </body>
+
 </html>
