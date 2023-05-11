@@ -63,21 +63,19 @@
                 //3초 있다가 나오기
                 setTimeout(function () {
                     meong.show();
-                    gameStart();
                 }, 3000);
             }
 
             //1초마다 로그 기록남기기
             function countDown() {
                 let timer = setInterval(function () {
-                    console.log(count--);
-               
-                if (count <= 0) {
-                    //인터벌 취소
-                    clearInterval(timer);
-                }
-            }, 1000);
-
+                    console.log(count);
+                    count--;
+                    if (count < 0) {
+                        //인터벌 취소
+                        clearInterval(timer);
+                    }
+                }, 1000);
             }
 
 
@@ -95,8 +93,6 @@
                 if (meongLeftMargin < 0) {
                     meong.animate({ left: '+=10px' }, 0);
                 }
-
-
             }
 
             function moveRight() {
@@ -114,7 +110,6 @@
                 if (meongRightMargin > container.width() - meong.width()) {
                     meong.animate({ left: '-=10px' }, 0);
                 }
-
             }
         });
 
@@ -125,7 +120,6 @@
     <div id="container">
         <img id="meong" src="src/doggy.png" alt="">
     </div>
-
 </body>
 
 </html>
