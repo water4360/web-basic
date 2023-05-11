@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jump and pass!</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous">
+        </script>
+    <style>
+        #container {
+            position: absolute;
+            width: 600px;
+            height: 300px;
+            overflow: hidden;
+
+            border: 3px solid burlywood;
+        }
+
+        /* @keyframes background-scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-1920px);
+            }
+
+            /* from {
+                transform: translateX(0, 0);
+            }
+
+            to {
+                transform: translateX(-100%, 0);
+            } */
+        }
+
+        */ .sliding-background {
+            z-index: -50;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: slide 10s linear infinite;
+        }
+
+        @keyframes slide {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(-80%, 0);
+            }
+        }
+
+        #hari {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 50px;
+            bottom: 20px;
+            border: 3px solid yellowgreen;
+        }
+
+        #bone {
+            position: absolute;
+            width: 30px;
+            right: 10px;
+            bottom: 20px;
+            border: 1px solid coral;
+        }
+
+        #score {
+            float: right;
+        }
+
+        #gameover_screen {
+
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 30px;
+            text-align: center;
+            line-height: 200px;
+            display: none;
+        }
+    </style>
+
+    <script>
+
+        //얘네 어디다 쓰지?
+        const BONE_SPPED_MIN_EASY = 1000;
+        const BONE_SPPED_MAX_EASY = 3000;
+
+        const BONE_SPPED_MIN_HARD = 500;
+        const BONE_SPPED_MAX_HARD = 1000;
+
+        $('#gameover_screen input[type="button"]').click(function () {
+            $('#gameover_screen').hide(); // 게임 오버 화면 숨김
+            gameStart(); // 게임 재시작
+        });
+
+
+        $(function () {
+            const container = $('#container');
+
+            const hari = $('#hari');
+            const bone = $('#bone');
+
+            //점프중이면?
+            let isJumping = false
+            let score = 0;
+
+            gameStart();
+
+            function gameStart() {
+                $('#gameover_screen').hide();
+
+                setKeyboardEvent();
+                boneStart();
+
+                checkGameOver();
+            }
+
+
+            //더 좋은 예...?
+            function isColliding(el1, el2) {
+                const rect1 = el1.getBoundingClientRect();
+                const rect2 = el2.getBoundingClientRect();
+
+                return !(
+                    rect1.bottom < rect2.top ||
+                    rect1.top > rect2.bottom ||
+                    rect1.right < rect2.left ||
+                    rect1.left > rect2.right
+                );
+            }
+
+            // function checkGameOver() {
+            //     setInterval(function () {
+            //         const hariLeft = Number(hari.css('left').replace('px', ''));
+            //         const hariRight = hariLeft + 45;
+            //         const hariBottom = Number(hari.css('bottom').replace('px', ''));
+
+            //         const boneLeft = Number(bone.css('left').replace('px', ''));
+            //         const boneRight = boneLeft + bone.width();
+            //         const boneTop = bone.position().top;
+
+            //         const isGameOver
+            //             = hariLeft < boneLeft && boneLeft < hariRight
+            //             && hariBottom < boneTop;
+
+            //         if (isGameOver) {
+            //             hari.stop();
+            //             bone.stop();
+            //             $('#gameover_screen').show();
+            //         }
+            //     }, 1000 / 60);
+            // }
+
+
+            //copilot 추천
+            function checkGameOver() {
+                setInterval(function () {
+                    const isGameOver = isColliding(hari[0], bone[0]);
+                    if (isGameOver) {
+                        hari.stop();
+                        bone.stop();
+                        $('#gameover_screen').show();
+                    }
+                }, 1000 / 60);
+            }
+
+
+            function getRandomNumber(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function boneStart() {
+
+                const speed = getRandomNumber(1000, 3000);
+                bone.animate({ right: '900px' }
+                    , speed
+                    , 'linear'
+                    , function () {
+                        score += 100;
+                        updateScore(score);
+
+                        //프레임 밖에서 등장하도록 위치값 조정
+                        bone.css({ right: '-50px' })
+                        //반복등장
+                        boneStart();
+                    })
+            }
+
+            function updateScore(score) {
+                $('#score').text(score);
+            }
+
+
+
+            function setKeyboardEvent() {
+
+                $('html').keydown(function (e) {
+                    switch (e.key) {
+                        case 'ArrowLeft':
+                            moveLeft();
+                            break;
+                        case 'ArrowRight':
+                            moveRight();
+                            break;
+                        case ' ': //spacebar
+                            if (!isJumping) {
+                                jump();
+                            }
+                            break;
+                    }
+                    console.log(e.key);
+                })
+
+                function moveLeft() {
+                    hari.animate({ left: '-=10px' }, 0);
+                    if (hari.position().left < 0) {
+                        hari.animate({ left: '+=10px' }, 0);
+                    }
+
+                    //왼쪽벽에 닿는지
+                    const hariLeftMargin = hari.position().left;
+                    if (hariLeftMargin < 0) {
+                        hari.animate({ left: '+=10px' }, 0);
+                    }
+                }
+
+                function moveRight() {
+                    hari.animate({ left: '+=10px' }, 0);
+                    //1번
+                    if (hari.position().left > 350) {
+                        hari.animate({ left: '-=10px' }, 0);
+                    }
+
+                    //오른쪽벽에 닿는지
+                    const hariRightMargin = hari.position().left;
+                    if (hariRightMargin > container.width() - hari.width()) {
+                        hari.animate({ left: '-=10px' }, 0);
+                    }
+                }
+                function jump() {
+                    isJumping = true
+                    hari.animate({ bottom: '+=60px' })
+                        .animate({ bottom: '-=60px' }, function () {
+                            isJumping = false
+                        }); //합쳐줬음
+                }
+            }
+        })
+
+    </script>
+
+</head>
+
+<body>
+    <div id="container">
+        <div class="sliding-background"></div>
+        <!-- <div id="background"> -->
+        <!-- <img id="bg" src="src/bg.jpeg" alt=""> -->
+
+        <!-- 캐릭터 -->
+        <img id="hari" src="src/walking-hari.gif" alt="">
+        <!-- 날아오는 -->
+        <img id="bone" src="src/bone.png" alt="">
+        <div id="gameover_screen">
+            GAME OVER
+            <input type="button" onclik="window.location.reload();" value="다시하기">
+        </div>
+    </div>
+    <div id="score">0</div>
+    </div>
+</body>
+
+</html>
