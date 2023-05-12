@@ -8,118 +8,9 @@
     <title>230512 Hari's peaceful walking</title>
     <script src="https://code.jquery.com/jquery-3.6.4.js"
         integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-    <style>
-        @font-face {
-            font-family: 'DOSIyagiMedium';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/DOSIyagiMedium.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        * {
-            font-family: 'DOSIyagiMedium';
-            /* font-size: large; */
-        }
-
-        #container {
-            position: absolute;
-            left: 10px;
-            width: 600px;
-            height: 300px;
-            border: 1px black solid;
-            overflow: hidden;
-            background-image: url('src/forest.jpg');
-            /* background-repeat: repeat; */
-            background-size: contain;
-        }
-
-        #title {
-            position: relative;
-            background-color: aliceblue;
-            font-size: small;
-        }
-
-        #guide {
-            position: relative;
-            background-color: aliceblue;
-            font-size: small;
-        }
-
-        #hari {
-            position: absolute;
-            left: 20px;
-            bottom: 40px;
-            width: 100px;
-            height: 100px;
-            border: 1px solid;
-        }
-
-        .toEat {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            right: 0px;
-            bottom: 40px;
-        }
-
-        #bone {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            right: 0px;
-            bottom: 160px;
-        }
-
-        .toAvoid {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            right: 0px;
-            bottom: 40px;
-            transform: scaleX(-1);
-        }
-
-        #rabbit {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            right: 0px;
-            bottom: 40px;
-            transform: scaleX(-1);
-        }
-
-        #goose {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            right: 0px;
-            bottom: 40px;
-            transform: scaleX(1);
-        }
-
-        #score {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 30px;
-            color: aliceblue;
-        }
-
-        #gameover_screen {
-
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            font-size: 30px;
-            text-align: center;
-            line-height: 300px;
-            display: none;
-            z-index: 100;
-        }
-    </style>
-
+    
+    <link rel="stylesheet" href="style.css">
+    
     <script>
         const TOEAT_SPEED_MIN_EASY = 1000;
         const TOEAT_SPEED_MAX_EASY = 3000;
@@ -127,13 +18,18 @@
         const TOEAT_SPEED_MIN_HARD = 500;
         const TOEAT_SPEED_MAX_HARD = 1000;
 
+        const container = $('#container');
+        let hari;
+        let friend;
+
         $('#gameover_screen input[type="button"]').click(function () {
             $('#gameover_screen').hide(); // 게임 오버 화면 숨김
             gameStart(); // 게임 재시작
         });
 
         $(function () {
-            const hari = $('#hari');
+            hari = $('#hari');
+            friend = $('#fox');
             const toEat = $('.toEat');
             const toAvoid = $('.toAvoid');
 
@@ -141,7 +37,6 @@
             let isJumping = false;
             let score = 0;
 
-            gameStart();
 
             //배경화면 움직이기
             function moveBackground() {
@@ -151,30 +46,145 @@
                 }, 10);
             }
 
+            //게임 시작
+            gameStart();
 
             //게임 시작시 모든 함수 실행
             function gameStart() {
                 $('#gameover_screen').hide();
+                moveBackground();
 
                 setKeyboardEvent();
                 objToEat();
                 objToAvoid();
 
                 checkGameOver();
-                moveBackground()
+                checkGameClear()
             }
 
-            //충돌 감지
-            function isColliding(el1, el2) {
-                const char = el1.getBoundingClientRect();
-                // const char = {
-                //     bottom: el1.getBoundingClientRect().bottom,
-                //     top: el1.getBoundingClientRect().bottom - el1.height() + 20, // 다리와 발 부분만 선택
-                //     right: el1.getBoundingClientRect().right - 20, // 다리와 발 부분만 선택
-                //     left: el1.getBoundingClientRect().left + 20 // 다리와 발 부분만 선택
-                // };
+            //하리(캐릭터) 따라다니기
+            function followHari() {
+                let whereHari = hari.position();
+                friend.css({
+                    left: whereHari.left + 50 + 'px',
+                    bottom: whereHari.bottom + 50 + 'px'
+                })
+                //평소엔 숨어있다가
+                // friend.hide();
+            }
 
-                const obj = el2.getBoundingClientRect();
+            setInterval(followHari, 1000 / 60);
+
+
+            //최소~최대값 랜덤함수 구하기
+            function getRandomNumber(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            //먹어야 할 오브젝트
+            function objToEat() {
+                // 속도 조절
+                const speed = getRandomNumber(2000, 3000);
+
+                // 음식이 우측으로부터 800px까지 이동
+                toEat.animate(
+                    { right: '800px' },
+                    speed,
+                    'linear',
+                    function () {
+                        // 음식 리필
+                        toEat.css('right', '-50px');
+                        objToEat();
+                    });
+
+                //먹으면 점수 증가
+                setInterval(function () {
+                    if (isColliding(hari[0], toEat[0])) {
+                        score += 100;
+                        updateScore(score);
+                        toEat.stop();
+                        toEat.css('right', '-50px');
+                        objToEat();
+                        // hari.stop();
+                    }
+                }, 1000 / 60);
+
+                // if (isColliding(hari[0], toEat[0])) {
+                //     score += 100;
+                //     updateScore(score);
+                // }
+            }
+
+            //피해야할 오브젝트
+            function objToAvoid() {
+                // 속도 조절
+                const speed = getRandomNumber(3000, 5000);
+
+                let collided = false; //충돌 여부 확인
+
+                // //첫 충돌일때만 점수 감소 
+                // if (!collided) {
+                //     score -= 100;
+                //     updateScore(score);
+                // }
+
+                // 장애물이 오른쪽에서 왼쪽으로
+                toAvoid.animate(
+                    { right: '700px' },
+                    speed,
+                    'linear',
+                    function () {
+                        // 구스 리셋
+                        toAvoid.css('right', '-50px');
+                        objToAvoid();
+                    });
+
+                // setInterval(function () {
+                //     if (isColliding(hari[0], toAvoid[0])) {
+                //         collided = true;
+                //     }
+                // }, 1000 / 60);
+
+
+                //백업
+                // // 닿으면 점수 감소
+                // setInterval(function () {
+                //     if (isColliding(hari[0], toAvoid[0])) {
+                //         score -= 50;
+                //         updateScore(score);
+                //         // toAvoid.stop();
+                //         toAvoid.css('right', '-50px');
+                //         objToAvoid();
+                //     }
+                // }, 1000 / 60);
+            }
+
+            //점수 반영 + 색변경
+            function updateScore(score) {
+                let currentScore = $('#score');
+                currentScore.text(score)
+                    .prepend('SCORE: ');
+
+                if (currentScore.text() < 0) {
+                    currentScore.css('color', 'red');
+                } else {
+                    currentScore.css('color', 'aliceblue');
+                }
+                return currentScore;
+            }
+
+
+            //충돌 감지
+            function isColliding(object1, object2) {
+                // const char = object1.getBoundingClientRect();
+                const char = {
+                    bottom: object1.getBoundingClientRect().bottom,
+                    top: object1.getBoundingClientRect().top + 40,
+                    right: object1.getBoundingClientRect().right - 20, // 다리와 발 부분만 선택
+                    left: object1.getBoundingClientRect().left + 20 // 다리와 발 부분만 선택
+                };
+
+                const obj = object2.getBoundingClientRect();
 
                 return !(
                     char.bottom < obj.top ||
@@ -184,75 +194,47 @@
                 );
             }
 
-            //copilot 추천
-            function checkGameOver() {
+            //설정점수 도달시 게임클리어
+            function checkGameClear() {
                 setInterval(function () {
-                    const isGameOver = isColliding(hari[0], toEat[0]);
-                    if (isGameOver) {
-                        hari.stop();
-                        toEat.stop();
-                        toAvoid.stop();
-                        $('#gameover_screen').show();
+                    // console.log(score);
+                    // console.log(score > 100);
+                    if (score > 300) {
+                        // alert('게임 클리어!');
+                        // toEat.fadeOut(3000)
+                        // toAvoid.fadeOut;
+
+                        //하리 잠든 사진, 산책 끝!
+                        $('#gameclear_screen').show();
                     }
                 }, 1000 / 60);
             }
 
-            function getRandomNumber(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
+            // //게임오버 체크 - copilot 추천
+            // function checkGameOver() {
+            //     setInterval(function () {
+            //         const isGameOver = isColliding(hari[0], toEat[0]);
+            //         if (isGameOver) {
+            //             hari.stop();
+            //             toEat.stop();
+            //             toAvoid.stop();
+            //             $('#gameover_screen').show();
+            //         }
+            //     }, 1000 / 60);
+            // }
 
-            function objToEat() {
-                // 속도 조절
-                const speed = getRandomNumber(1000, 3000);
-
-                // 음식이 오른쪽에서 날아와요
-                toEat.animate(
-                    { right: '700px' },
-                    speed,
-                    'linear',
-                    function () {
-                        // 점수 올리자
-                        score += 100;
-                        updateScore(score);
-
-                        // 적 리젠
-                        toEat.css('right', '-50px');
-                        objToEat();
-                    });
-            }
-
-            //피해야할 장애물
-            function objToAvoid() {
-                // 속도 조절
-                const speed = getRandomNumber(3000, 6000);
-
-                // 장애물이 오른쪽에서 왼쪽으로
-                toAvoid.animate(
-                    { right: '700px' },
-                    speed,
-                    'linear',
-                    function () {
-
-                        // 닿으면 점수가 깎여요
-                        score -= 100;
-                        updateScore(score);
-
-                        // 적 리셋
-                        toAvoid.css('right', '-50px');
-                        objToAvoid();
-                    });
-            }
-
-            function updateScore(score) {
-                $('#score').text(score);
-            }
-
-            function jump() {
-                isJumping = true;
-                hari.animate({ bottom: '+=50px' })
-                    .animate({ bottom: '-=50px' }, function () {
-                        isJumping = false;
-                    });
+            //게임오버 조건 변경
+            function checkGameOver() {
+                const isGameOver = false;
+                setInterval(function () {
+                    if (score === -500) {
+                        hari.stop();
+                        toEat.stop();
+                        toAvoid.stop();
+                        $('#gameover_screen').show();
+                        return isGameOver = true;
+                    }
+                })
             }
 
             // 키보드 이벤트 정의
@@ -266,15 +248,15 @@
                         case 'ArrowRight':
                             moveRight();
                             break;
-                        case ' ': //spacebar
+                        case 'ArrowUp': //spacebar
                             if (!isJumping) {
                                 jump();
                             }
                             break;
-                        // spacebar 입력시 언니호출ㅋㅋ
-                        // case ' ':
-                        //     callSoob();
-                        //     break;
+                        // spacebar 입력시 친구호출ㅋㅋ
+                        case ' ':
+                            callFriend();
+                            break;
                     }
                     console.log(e.key);
                 })
@@ -284,22 +266,19 @@
                     if (hari.position().left < 0) {
                         hari.animate({ left: '+=10px' }, 0);
                     }
-
                     //왼쪽벽에 닿는지
                     const hariLeftMargin = hari.position().left;
                     if (hariLeftMargin < 0) {
                         hari.animate({ left: '+=10px' }, 0);
                     }
                 }
-
                 function moveRight() {
                     hari.animate({ left: '+=10px' }, 0);
                     //1번
                     if (hari.position().left > 350) {
                         hari.animate({ left: '-=10px' }, 0);
                     }
-
-                    //오른쪽벽에 닿는지
+                    //오른쪽 한계
                     const hariRightMargin = hari.position().left;
                     if (hariRightMargin > container.width() - hari.width()) {
                         hari.animate({ left: '-=10px' }, 0);
@@ -307,21 +286,62 @@
                 }
                 function jump() {
                     isJumping = true
-                    hari.animate({ bottom: '+=60px' })
-                        .animate({ bottom: '-=60px' }, function () {
+                    hari.animate({ bottom: '+=80px' }, 500)
+                        .animate({ bottom: '-=80px' }, 500, function () {
                             isJumping = false
                         }); //합쳐줬음
                 }
+
+                // 필살기, 친구 부르기
+                function callFriend() {
+                    friend = $('#fox');
+                    friend.show();
+                    friend.animate(
+                        { left: '600px' },
+                        //숫자 낮으면 빠르고, 높으면 느려짐
+                        1000,
+                        'linear',
+                        function () {
+                            //거위 물리치고
+                            goose.hide();
+                            // killGoose();
+                            //사라지기
+                            friend.show();
+                            friend.css(defaultPosition);
+                            goose.show();
+                        }
+                    )
+                }
+                const fox = document.querySelector('#fox');
+                const goose = document.querySelector('#goose');
+
+                //여우의 거위잡기
+                function killGoose() {
+                    const foxRect = fox.getBoundingClientRect();
+                    const gooseRect = goose.getBoundingClientRect();
+
+                    if (foxRect.x + foxRect.width > gooseRect.x) {
+                        fox.hide();
+                        goose.hide();
+                    }
+                }
+
+                setInterval(killGoose, 1000 / 60);
             }
+
         });
     </script>
 </head>
 
 <body>
-    <div id="title">미친 거위를 피해 안전하게 산책을 마치고 언니에게 돌아가도록 도와주세요!</div>
+    <!-- <span id="title">하리의 산책</span> -->
+    <span id="title">하리가 미친 거위를 피해 <br> 안전하게 산책을 마치고 <br>돌아갈 수 있도록 도와주세요!</span>
     <div id="container">
-        <div class="sliding-background"></div>
-        <img id="hari" src="src/walking-hari.gif" alt="">
+        <!-- <div class="sliding-background"></div> -->
+        <div>
+            <img id="hari" src="src/walking-hari.gif" alt="">
+            <img class="friend" id="fox" src="src/fox.gif" alt="">
+        </div>
 
         <img class="toEat" id="bone" src="src/bone.png" alt="">
         <img class="toAvoid" id="goose" src="src/goose.gif" alt="">
@@ -332,8 +352,8 @@
         </div>
 
 
-        <div id="score">000</div>
-        <div id="guide">이동:좌우화살표, 점프:위, 언니소환:spacebar</div>
+        <div id="score">score : 000</div>
+        <div id="guide">이동 : ◀ ▶&nbsp&nbsp&nbsp점프 : ▲&nbsp&nbsp&nbsp친구부르기 : spacebar</div>
     </div>
 </body>
 
