@@ -1,0 +1,148 @@
+       
+        * {
+            /* font-family: 'Galmuri11'; */
+            font-family: 'NeoDunggeunmoPro-Regular';
+            font-size: large;
+        }
+
+        #container {
+            position: absolute;
+            left: 100px;
+            width: 600px;
+            height: 300px;
+            border: 1px black solid;
+            overflow: hidden;
+            background-image: url('src/forest.jpg');
+            background-position: 0px 0px;
+            /* background-repeat: repeat; */
+            background-size: contain;
+            z-index: -100;
+        }
+
+        #container img {
+            border: 1px solid white;
+        }
+
+        #title {
+            position: relative;
+            width: 100%;
+            background-color: tomato;
+            font-size: larger;
+        }
+
+        #guide {
+            position: absolute;
+            /* background-color: aliceblue; */
+            color: aliceblue;
+            margin-left: 170px;
+            font-size: small;
+            bottom: 10px;
+            padding: 1px 3px;
+        }
+
+        #chance {
+            position: relative;
+            color: aliceblue;
+            /* font-size: small; */
+            bottom: 0px;
+        }
+
+
+
+        /* 플레이캐릭터 */
+        #hari {
+            position: absolute;
+            left: 20px;
+            bottom: 37px;
+            width: 100px;
+            height: 100px;
+            /* border: 1px solid white; */
+        }
+
+        /* 캐릭터 친구 */
+        #fox {
+            position: absolute;
+            width: 30px;
+            left: 0px;
+            bottom: 60px;
+            /* transform: rotate(90deg) */
+            /* z-index: -1; */
+            transform: rotate3d(0, 0, 90, 90deg);
+            display: none;
+
+        }
+
+        .toEat {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            right: 0px;
+            bottom: 40px;
+        }
+
+        #bone {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            right: 0px;
+            bottom: 150px;
+        }
+
+        .toAvoid {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            right: 0px;
+            bottom: 40px;
+            transform: scaleX(-1);
+        }
+
+        #rabbit {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            right: 0px;
+            bottom: 40px;
+            transform: scaleX(-1);
+        }
+
+        #goose {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            right: 0px;
+            bottom: 36px;
+            transform: scaleX(1);
+        }
+
+        #score {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 25px;
+            color: aliceblue;
+        }
+
+        #gameover_screen {
+
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 30px;
+            text-align: center;
+            line-height: 300px;
+            display: none;
+            z-index: 100;
+        }
+
+         /* @import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css'); */
+
+         @font-face {
+            font-family: 'NeoDunggeunmoPro-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/NeoDunggeunmoPro-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
