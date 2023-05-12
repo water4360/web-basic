@@ -5,75 +5,104 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jump and pass!</title>
+    <title>230512 Hari's peaceful walking</title>
     <script src="https://code.jquery.com/jquery-3.6.4.js"
-        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous">
-        </script>
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <style>
+        @font-face {
+            font-family: 'DOSIyagiMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/DOSIyagiMedium.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            font-family: 'DOSIyagiMedium';
+            /* font-size: large; */
+        }
+
         #container {
             position: absolute;
+            left: 10px;
             width: 600px;
             height: 300px;
+            border: 1px black solid;
             overflow: hidden;
-
-            border: 3px solid burlywood;
+            background-image: url('src/forest.jpg');
+            /* background-repeat: repeat; */
+            background-size: contain;
         }
 
-        /* @keyframes background-scroll {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-1920px);
-            }
-
-            /* from {
-                transform: translateX(0, 0);
-            }
-
-            to {
-                transform: translateX(-100%, 0);
-            } */
+        #title {
+            position: relative;
+            background-color: aliceblue;
+            font-size: small;
         }
 
-        */ .sliding-background {
-            z-index: -50;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            animation: slide 10s linear infinite;
-        }
-
-        @keyframes slide {
-            from {
-                transform: translate(0, 0);
-            }
-
-            to {
-                transform: translate(-80%, 0);
-            }
+        #guide {
+            position: relative;
+            background-color: aliceblue;
+            font-size: small;
         }
 
         #hari {
             position: absolute;
+            left: 20px;
+            bottom: 40px;
             width: 100px;
             height: 100px;
-            left: 50px;
-            bottom: 20px;
-            border: 3px solid yellowgreen;
+            border: 1px solid;
+        }
+
+        .toEat {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            right: 0px;
+            bottom: 40px;
         }
 
         #bone {
             position: absolute;
-            width: 30px;
-            right: 10px;
-            bottom: 20px;
-            border: 1px solid coral;
+            width: 40px;
+            height: 40px;
+            right: 0px;
+            bottom: 160px;
+        }
+
+        .toAvoid {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            right: 0px;
+            bottom: 40px;
+            transform: scaleX(-1);
+        }
+
+        #rabbit {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            right: 0px;
+            bottom: 40px;
+            transform: scaleX(-1);
+        }
+
+        #goose {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            right: 0px;
+            bottom: 40px;
+            transform: scaleX(1);
         }
 
         #score {
-            float: right;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            color: aliceblue;
         }
 
         #gameover_screen {
@@ -85,124 +114,148 @@
             color: white;
             font-size: 30px;
             text-align: center;
-            line-height: 200px;
+            line-height: 300px;
             display: none;
+            z-index: 100;
         }
     </style>
 
     <script>
+        const TOEAT_SPEED_MIN_EASY = 1000;
+        const TOEAT_SPEED_MAX_EASY = 3000;
 
-        //얘네 어디다 쓰지?
-        const BONE_SPPED_MIN_EASY = 1000;
-        const BONE_SPPED_MAX_EASY = 3000;
-
-        const BONE_SPPED_MIN_HARD = 500;
-        const BONE_SPPED_MAX_HARD = 1000;
+        const TOEAT_SPEED_MIN_HARD = 500;
+        const TOEAT_SPEED_MAX_HARD = 1000;
 
         $('#gameover_screen input[type="button"]').click(function () {
             $('#gameover_screen').hide(); // 게임 오버 화면 숨김
             gameStart(); // 게임 재시작
         });
 
-
         $(function () {
-            const container = $('#container');
-
             const hari = $('#hari');
-            const bone = $('#bone');
+            const toEat = $('.toEat');
+            const toAvoid = $('.toAvoid');
 
-            //점프중이면?
-            let isJumping = false
+            // 점프 중인지?
+            let isJumping = false;
             let score = 0;
 
             gameStart();
 
+            //배경화면 움직이기
+            function moveBackground() {
+                let position = 0;
+                setInterval(function () {
+                    $("#container").css("background-position", position-- + "px");
+                }, 10);
+            }
+
+
+            //게임 시작시 모든 함수 실행
             function gameStart() {
                 $('#gameover_screen').hide();
 
                 setKeyboardEvent();
-                boneStart();
+                objToEat();
+                objToAvoid();
 
                 checkGameOver();
+                moveBackground()
             }
 
-
-            //더 좋은 예...?
+            //충돌 감지
             function isColliding(el1, el2) {
-                const rect1 = el1.getBoundingClientRect();
-                const rect2 = el2.getBoundingClientRect();
+                const char = el1.getBoundingClientRect();
+                // const char = {
+                //     bottom: el1.getBoundingClientRect().bottom,
+                //     top: el1.getBoundingClientRect().bottom - el1.height() + 20, // 다리와 발 부분만 선택
+                //     right: el1.getBoundingClientRect().right - 20, // 다리와 발 부분만 선택
+                //     left: el1.getBoundingClientRect().left + 20 // 다리와 발 부분만 선택
+                // };
+
+                const obj = el2.getBoundingClientRect();
 
                 return !(
-                    rect1.bottom < rect2.top ||
-                    rect1.top > rect2.bottom ||
-                    rect1.right < rect2.left ||
-                    rect1.left > rect2.right
+                    char.bottom < obj.top ||
+                    char.top > obj.bottom ||
+                    char.right < obj.left ||
+                    char.left > obj.right
                 );
             }
-
-            // function checkGameOver() {
-            //     setInterval(function () {
-            //         const hariLeft = Number(hari.css('left').replace('px', ''));
-            //         const hariRight = hariLeft + 45;
-            //         const hariBottom = Number(hari.css('bottom').replace('px', ''));
-
-            //         const boneLeft = Number(bone.css('left').replace('px', ''));
-            //         const boneRight = boneLeft + bone.width();
-            //         const boneTop = bone.position().top;
-
-            //         const isGameOver
-            //             = hariLeft < boneLeft && boneLeft < hariRight
-            //             && hariBottom < boneTop;
-
-            //         if (isGameOver) {
-            //             hari.stop();
-            //             bone.stop();
-            //             $('#gameover_screen').show();
-            //         }
-            //     }, 1000 / 60);
-            // }
-
 
             //copilot 추천
             function checkGameOver() {
                 setInterval(function () {
-                    const isGameOver = isColliding(hari[0], bone[0]);
+                    const isGameOver = isColliding(hari[0], toEat[0]);
                     if (isGameOver) {
                         hari.stop();
-                        bone.stop();
+                        toEat.stop();
+                        toAvoid.stop();
                         $('#gameover_screen').show();
                     }
                 }, 1000 / 60);
             }
 
-
             function getRandomNumber(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
 
-            function boneStart() {
-
+            function objToEat() {
+                // 속도 조절
                 const speed = getRandomNumber(1000, 3000);
-                bone.animate({ right: '900px' }
-                    , speed
-                    , 'linear'
-                    , function () {
+
+                // 음식이 오른쪽에서 날아와요
+                toEat.animate(
+                    { right: '700px' },
+                    speed,
+                    'linear',
+                    function () {
+                        // 점수 올리자
                         score += 100;
                         updateScore(score);
 
-                        //프레임 밖에서 등장하도록 위치값 조정
-                        bone.css({ right: '-50px' })
-                        //반복등장
-                        boneStart();
-                    })
+                        // 적 리젠
+                        toEat.css('right', '-50px');
+                        objToEat();
+                    });
+            }
+
+            //피해야할 장애물
+            function objToAvoid() {
+                // 속도 조절
+                const speed = getRandomNumber(3000, 6000);
+
+                // 장애물이 오른쪽에서 왼쪽으로
+                toAvoid.animate(
+                    { right: '700px' },
+                    speed,
+                    'linear',
+                    function () {
+
+                        // 닿으면 점수가 깎여요
+                        score -= 100;
+                        updateScore(score);
+
+                        // 적 리셋
+                        toAvoid.css('right', '-50px');
+                        objToAvoid();
+                    });
             }
 
             function updateScore(score) {
                 $('#score').text(score);
             }
 
+            function jump() {
+                isJumping = true;
+                hari.animate({ bottom: '+=50px' })
+                    .animate({ bottom: '-=50px' }, function () {
+                        isJumping = false;
+                    });
+            }
 
-
+            // 키보드 이벤트 정의
             function setKeyboardEvent() {
 
                 $('html').keydown(function (e) {
@@ -218,6 +271,10 @@
                                 jump();
                             }
                             break;
+                        // spacebar 입력시 언니호출ㅋㅋ
+                        // case ' ':
+                        //     callSoob();
+                        //     break;
                     }
                     console.log(e.key);
                 })
@@ -256,28 +313,27 @@
                         }); //합쳐줬음
                 }
             }
-        })
-
+        });
     </script>
-
 </head>
 
 <body>
+    <div id="title">미친 거위를 피해 안전하게 산책을 마치고 언니에게 돌아가도록 도와주세요!</div>
     <div id="container">
         <div class="sliding-background"></div>
-        <!-- <div id="background"> -->
-        <!-- <img id="bg" src="src/bg.jpeg" alt=""> -->
-
-        <!-- 캐릭터 -->
         <img id="hari" src="src/walking-hari.gif" alt="">
-        <!-- 날아오는 -->
-        <img id="bone" src="src/bone.png" alt="">
+
+        <img class="toEat" id="bone" src="src/bone.png" alt="">
+        <img class="toAvoid" id="goose" src="src/goose.gif" alt="">
+
         <div id="gameover_screen">
-            GAME OVER
-            <input type="button" onclik="window.location.reload();" value="다시하기">
+            <span id="gameover_msg">산책 종료ㅠㅠ</span>
+            <input type="button" onclick="window.location.reload();" value="다시하기">
         </div>
-    </div>
-    <div id="score">0</div>
+
+
+        <div id="score">000</div>
+        <div id="guide">이동:좌우화살표, 점프:위, 언니소환:spacebar</div>
     </div>
 </body>
 
