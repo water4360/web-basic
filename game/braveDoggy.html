@@ -5,40 +5,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>230512 Hari's peaceful walking</title>
-    <script
+    <!-- <script
       src="https://code.jquery.com/jquery-3.6.4.js"
       integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="stylesheet" href="style.css" />
 
     <script>
-      const TOEAT_SPEED_MIN_EASY = 1000;
-      const TOEAT_SPEED_MAX_EASY = 3000;
+      const FOOD_SPEED_MIN_EASY = 1000;
+      const FOOD_SPEED_MAX_EASY = 3000;
 
-      const TOEAT_SPEED_MIN_HARD = 500;
-      const TOEAT_SPEED_MAX_HARD = 1000;
+      const FOOD_SPEED_MIN_HARD = 500;
+      const FOOD_SPEED_MAX_HARD = 1000;
 
-      const container = $("#container");
+      let container = $("#container");
+      let countdown = $("#countdown");
+
       let hari;
       let friend;
-
+      let food;
+      let goose;
+      let score;
+      
       //게임 시작 버튼을 누르면 안내메세지&버튼 사라지고 카운트다운 시작.
-      $('startScreen input[type="button"]').click(function () {
-        $("#startScreen").hide(); // 게임 시작 화면 숨김
-        // gameStart(); // 게임 시작
-      });
+      
+      $(document).ready(function () {
+        const startButton = $("#startButton");
+        // let score = $('#score');
+        startButton.on("click", function () {
+          // alert("게임을 시작합니다. 3초 후에 시작됩니다.");
+          $("#startScreen").hide(); // 게임 시작 화면 숨김
+          // gameStart(); // 게임 시작
+            hari.show();
+            food.show();
+            goose.show();
+            score.show();
+          });
+        });
 
       $('#gameover_screen input[type="button"]').click(function () {
         $("#gameover_screen").hide(); // 게임 오버 화면 숨김
         gameStart(); // 게임 재시작
       });
 
+      //무조건 실행되는 함수
       $(function () {
         hari = $("#hari");
         friend = $("#fox");
-        const toEat = $(".toEat");
-        const toAvoid = $(".toAvoid");
+        food = $(".food");
+        goose = $(".toAvoid");
+        
+
+        //초기화면 세팅
+        moveBackground();
+        hari.hide();
+        food.hide();
+        goose.hide();
+        score.hide();
 
         // 점프 중인지?
         let isJumping = false;
@@ -53,15 +78,16 @@
         }
 
         //게임 시작
-        gameStart();
+        // gameStart();
 
         //게임 시작시 모든 함수 실행
         function gameStart() {
-          $("#gameover_screen").hide();
-          moveBackground();
+          hari.show();
+          goose.show();
+          food.show();
 
           setKeyboardEvent();
-          objToEat();
+          objFood();
           objToAvoid();
 
           checkGameOver();
@@ -87,30 +113,30 @@
         }
 
         //먹어야 할 오브젝트
-        function objToEat() {
+        function objFood() {
           // 속도 조절
           const speed = getRandomNumber(2000, 3000);
 
           // 음식이 우측으로부터 800px까지 이동
-          toEat.animate({ right: "800px" }, speed, "linear", function () {
+          food.animate({ right: "800px" }, speed, "linear", function () {
             // 음식 리필
-            toEat.css("right", "-50px");
-            objToEat();
+            food.css("right", "-50px");
+            objFood();
           });
 
           //먹으면 점수 증가
           setInterval(function () {
-            if (isColliding(hari[0], toEat[0])) {
+            if (isColliding(hari[0], food[0])) {
               score += 100;
               updateScore(score);
-              toEat.stop();
-              toEat.css("right", "-50px");
-              objToEat();
+              food.stop();
+              food.css("right", "-50px");
+              objFood();
               // hari.stop();
             }
           }, 1000 / 60);
 
-          // if (isColliding(hari[0], toEat[0])) {
+          // if (isColliding(hari[0], food[0])) {
           //     score += 100;
           //     updateScore(score);
           // }
@@ -124,7 +150,7 @@
           // 장애물이 오른쪽에서 왼쪽으로
           toAvoid.animate({ right: "700px" }, speed, "linear", function () {
             // 구스 리셋
-            toAvoid.css("right", "-50px");
+            toAvoid.css("right", "-100px");
             objToAvoid();
           });
 
@@ -144,18 +170,6 @@
               collided = false;
             }
           }, 1000 / 60);
-
-          //백업
-          // // 닿으면 점수 감소
-          // setInterval(function () {
-          //     if (isColliding(hari[0], toAvoid[0])) {
-          //         score -= 50;
-          //         updateScore(score);
-          //         // toAvoid.stop();
-          //         toAvoid.css('right', '-50px');
-          //         objToAvoid();
-          //     }
-          // }, 1000 / 60);
         }
 
         //점수 반영 + 색변경
@@ -197,12 +211,12 @@
             // console.log(score);
             // console.log(score > 100);
             if (score > 300) {
-              // alert('게임 클리어!');
-              // toEat.fadeOut(3000)
+              alert("게임 클리어!");
+              // food.fadeOut(3000)
               // toAvoid.fadeOut;
 
               //하리 잠든 사진, 산책 끝!
-              $("#gameclear_screen").show();
+              // $("#gameclear_screen").show();
             }
           }, 1000 / 60);
         }
@@ -210,10 +224,10 @@
         // //게임오버 체크 - copilot 추천
         // function checkGameOver() {
         //     setInterval(function () {
-        //         const isGameOver = isColliding(hari[0], toEat[0]);
+        //         const isGameOver = isColliding(hari[0], food[0]);
         //         if (isGameOver) {
         //             hari.stop();
-        //             toEat.stop();
+        //             food.stop();
         //             toAvoid.stop();
         //             $('#gameover_screen').show();
         //         }
@@ -226,7 +240,7 @@
           setInterval(function () {
             if (score === -500) {
               hari.stop();
-              toEat.stop();
+              food.stop();
               toAvoid.stop();
               $("#gameover_screen").show();
               return (isGameOver = true);
@@ -339,17 +353,16 @@
       <div id="intro">
         <div id="startScreen">
           <span id="titleName">하리의 평화로운 산책</span>
-            <span id="titleEngName">Hari's peaceful walk</span>
-          
+          <span id="titleEngName">Hari's peaceful walk</span>
 
           <span id="titleText">
-            목표점수 1000점을 모아서 <br>
-            하리🐕가 이상한 거위🔪를 피해 <br>
-            집으로 돌아갈 수 있도록 도와주세요! <br>
+            목표점수 1000점을 모아서 <br />
+            하리🐕가 이상한 거위🔪를 피해 <br />
+            집으로 돌아갈 수 있도록 도와주세요! <br />
           </span>
-          <button id="startButton">게임 시작</button>
+          <button id="startButton" onclick="clickButton()">P L A Y</button>
         </div>
-        <div id="countdown"></div>
+        <div id="countdown">33</div>
       </div>
       <div id="contents">
         <!-- <img id="bluredBg" src="src/forest.jpg" alt=""> -->
@@ -358,7 +371,7 @@
           <img class="friend" id="fox" src="src/fox.gif" alt="" />
         </div>
 
-        <img class="toEat" id="bone" src="src/bone.png" alt="" />
+        <img class="food" id="bone" src="src/bone.png" alt="" />
         <img class="toAvoid" id="goose" src="src/goose.gif" alt="" />
       </div>
       <div id="gameover_screen">

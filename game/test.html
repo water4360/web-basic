@@ -63,19 +63,20 @@
         <div id="countdown"></div>
       </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      const startButton = document.getElementById("start-button");
-      const gameContainer = document.getElementById("game-container");
-      const countdown = document.getElementById("countdown");
+      const startButton = $('#start-button');
+      const gameContainer = $('#game-container');
+      const countdown = $('#countdown');
 
-      startButton.addEventListener("click", () => {
-        startButton.style.display = "none";
-        gameContainer.style.display = "block";
+      startButton.click(function () {
+        startButton.hide();
+        gameContainer.show();
         let count = 3;
-        countdown.innerText = count;
+        countdown.text(count);
         const intervalId = setInterval(() => {
           count--;
-          countdown.innerText = count;
+          countdown.text(count);
           if (count === 0) {
             clearInterval(intervalId);
             startGame();
@@ -85,6 +86,7 @@
 
       function startGame() {
         // 게임 시작
+        console.log("게임이 시작되었습니다.");
       }
     </script>
   </body>
