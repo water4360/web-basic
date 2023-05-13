@@ -18,60 +18,68 @@
     let container = $("#container");
     let countdown = $("#countdown");
 
+
     let hari;
     let friend;
     let food;
     let goose;
-    let score;
+    // let score = $("#score");
 
     //모든 오브젝트가 준비되면 변수할당&실행
     $(document).ready(function () {
       const startButton = $("#startButton");
-      // let score = $('#score');
+      let contents = $("#contents");
+
       hari = $("#hari");
       friend = $("#fox");
       food = $(".food");
       goose = $(".toAvoid");
-      socre = $("#score");
       countdown = $("#countdown");
 
       //초기화면 세팅
-      moveBackground();
-      $('#contents').hide();//hari, food, goose, score, countdown 포함
+      // moveBackground();
+      contents.hide();//hari, food, goose, score, countdown 포함
+      countdown.hide();
 
+      //배경화면 움직이기
+      // function moveBackground() {
+      let position = 0;
+      setInterval(function () {
+        $("#container").css("background-position", position-- + "px");
+      }, 20);
+      // }
 
-      //게임 시작 버튼을 누르면 안내메세지&버튼 사라지고 카운트다운 시작.
+      $(function startPoint() {
+        
+      })
+
+      //게임 시작 버튼을 누르면 안내메세지&버튼 사라지고
       startButton.click(function () {
 
-        $("#startScreen").hide(); // 게임 시작 화면 숨김
+        $("#startScreen").hide();
         startButton.hide();
-
-
+        countdown.show();
         // hari.show();
         // food.show();
         // goose.show();
         // score.show();
 
+
+        // 3부터 countdown
         let count = 3;
         countdown.text(count);
 
-        const intervalId = setInterval(() => {
+        setInterval(() => {
           count--;
           countdown.text(count);
           if (count === 0) {
-            clearInterval(intervalId);
-
-            alert("게임이 시작되었습니다.");
+            clearInterval(this)
+            // alert("게임이 시작되었습니다.");
+            countdown.hide();
             gameStart();
           }
         }, 1000);
-
-
-
-
-
       }); //click 함수 끝
-
 
       // $(function () {
       // hari = $("#hari");
@@ -90,24 +98,13 @@
 
       // 점프 중인지?
       let isJumping = false;
-      // let score = 0;
 
-      //배경화면 움직이기
-      function moveBackground() {
-        let position = 0;
-        setInterval(function () {
-          $("#container").css("background-position", position-- + "px");
-        }, 10);
-      }
-
-      //게임 시작
-      // gameStart();
+      //게임 시작(임시 확인용)
+      gameStart();
 
       //게임 시작시 모든 함수 실행
       function gameStart() {
-        hari.show();
-        goose.show();
-        food.show();
+        contents.show();
 
         setKeyboardEvent();
         objFood();
@@ -127,13 +124,16 @@
         //평소엔 숨어있다가
         // friend.hide();
       }
-
       setInterval(followHari, 1000 / 60);
+
 
       //최소~최대값 랜덤함수 구하기
       function getRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
       }
+
+      //여기서부터 score는 다시 넘버
+      let score = 0;
 
       //먹어야 할 오브젝트
       function objFood() {
@@ -159,10 +159,6 @@
           }
         }, 1000 / 60);
 
-        // if (isColliding(hari[0], food[0])) {
-        //     score += 100;
-        //     updateScore(score);
-        // }
       }
 
       //피해야할 오브젝트
@@ -171,9 +167,9 @@
         const speed = getRandomNumber(3000, 5000);
 
         // 장애물이 오른쪽에서 왼쪽으로
-        toAvoid.animate({ right: "700px" }, speed, "linear", function () {
+        goose.animate({ right: "800px" }, speed, "linear", function () {
           // 구스 리셋
-          toAvoid.css("right", "-100px");
+          goose.css("right", "-100px");
           objToAvoid();
         });
 
@@ -181,7 +177,7 @@
         let hasCollidedBefore = false;
 
         setInterval(function () {
-          if (isColliding(hari[0], toAvoid[0])) {
+          if (isColliding(hari[0], goose[0])) {
             collided = true;
 
             //첫 충돌일때만 점수 감소
@@ -198,24 +194,25 @@
       //점수 반영 + 색변경
       function updateScore(score) {
         let currentScore = $("#score");
-        currentScore.text(score).prepend("SCORE: ");
+        currentScore.text(score).append("점");
 
-        if (currentScore.text() < 0) {
+        if (parseInt(currentScore.text()) < 0) {
           currentScore.css("color", "red");
         } else {
           currentScore.css("color", "aliceblue");
         }
-        return currentScore;
       }
 
       //충돌 감지
+      //하리전용
       function isColliding(object1, object2) {
         // const char = object1.getBoundingClientRect();
         const char = {
+          //230513 22:03 1차 수정
           bottom: object1.getBoundingClientRect().bottom,
           top: object1.getBoundingClientRect().top + 40,
-          right: object1.getBoundingClientRect().right - 20, // 다리와 발 부분만 선택
-          left: object1.getBoundingClientRect().left + 20, // 다리와 발 부분만 선택
+          right: object1.getBoundingClientRect().right - 20,
+          left: object1.getBoundingClientRect().left + 50,
         };
 
         const obj = object2.getBoundingClientRect();
@@ -248,12 +245,14 @@
       function checkGameOver() {
         const isGameOver = false;
         setInterval(function () {
-          if (score === -500) {
+          if (score === -50) {
             hari.stop();
             food.stop();
-            toAvoid.stop();
+            goose.stop();
             $("#gameover_screen").show();
-            return (isGameOver = true);
+            //확인용
+            $('#startScreen').hide();
+            isGameOver = true;
           }
         });
       }
@@ -268,14 +267,19 @@
             case "ArrowRight":
               moveRight();
               break;
-            case "ArrowUp": //spacebar
+            case " ": //spacebar
               if (!isJumping) {
                 jump();
               }
               break;
             // spacebar 입력시 친구호출ㅋㅋ
-            case " ":
+            case "F":
+            case "f":
               callFriend();
+              break;
+            case "R":
+            case "r":
+              alert("게임을 재시작합니다.");
               break;
           }
           console.log(e.key);
@@ -288,14 +292,14 @@
           }
           //왼쪽벽에 닿는지
           const hariLeftMargin = hari.position().left;
-          if (hariLeftMargin < 0) {
+          if (hariLeftMargin < 30) {
             hari.animate({ left: "+=10px" }, 0);
           }
         }
         function moveRight() {
           hari.animate({ left: "+=10px" }, 0);
           //1번
-          if (hari.position().left > 350) {
+          if (hari.position().left > 450) {
             hari.animate({ left: "-=10px" }, 0);
           }
           //오른쪽 한계
@@ -307,8 +311,8 @@
         function jump() {
           isJumping = true;
           hari
-            .animate({ bottom: "+=80px" }, 500)
-            .animate({ bottom: "-=80px" }, 500, function () {
+            .animate({ bottom: "+=100px" }, 300)
+            .animate({ bottom: "-=100px" }, 1200, function () {
               isJumping = false;
             }); //합쳐줬음
         }
@@ -342,8 +346,8 @@
           const gooseRect = goose.getBoundingClientRect();
 
           if (foxRect.x + foxRect.width > gooseRect.x) {
-            fox.hide();
-            goose.hide();
+            // friend.hide();
+            // goose.hide();
           }
         }
 
@@ -357,7 +361,8 @@
 
     }); //ready 함수 끝
 
-    $('#gameover_screen input[type="button"]').click(function () {
+    // $('#gameover_screen input[type="button"]').click(function () {
+    $('#retryButton').click(function () {
       $("#gameover_screen").hide(); // 게임 오버 화면 숨김
       gameStart(); // 게임 재시작
     });
@@ -384,7 +389,7 @@
           하리🐕가 이상한 거위🔪를 피해 <br />
           집으로 돌아갈 수 있도록 도와주세요! <br />
         </span>
-        <button id="startButton" onclick="clickButton()">P L A Y</button>
+        <button id="startButton" onclick="clickButton()">시작하기</button>
       </div>
       <div id="countdown">3</div>
     </div>
@@ -394,21 +399,25 @@
       <div>
         <img id="hari" src="src/walking-hari.gif" alt="" />
         <img class="friend" id="fox" src="src/fox.gif" alt="" />
+        <!-- <img class="friend" id="rabbit" src="src/rabbit.gif" alt="" /> -->
       </div>
 
       <img class="food" id="bone" src="src/bone.png" alt="" />
       <img class="toAvoid" id="goose" src="src/goose.gif" alt="" />
-      <div id="score">score : 000</div>
+      <div id="score">0점</div>
     </div>
 
 
     <div id="gameover_screen">
-      <span id="gameover_msg">산책 종료ㅠㅠ</span>
-      <input type="button" onclick="window.location.reload();" value="다시하기" />
+      <span id="gameover_msg">
+        <산책 실패😥><br>💡팁 : 거위를 피하기 힘들때 [F]키를 눌러보세요!
+      </span> <br>
+      <!-- <button id="retryButton" onclick="window.location.reload();">다시하기</button> -->
+      <button id="retryButton" onclick="window.location.reload();">다시 도전하기[R]</button>
     </div>
 
     <div id="guide">
-      이동 : ◀ ▶&nbsp&nbsp&nbsp점프 : ▲&nbsp&nbsp&nbsp친구부르기 : spacebar
+      이동 : ◀ ▶&nbsp&nbsp&nbsp점프 : [spacebar]&nbsp&nbsp&nbsp친구부르기 : F
     </div>
   </div>
 </body>
