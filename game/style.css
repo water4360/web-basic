@@ -14,10 +14,10 @@
 }
 
 #container {
-  /* display: flex;
+  display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center; */
+            align-items: center;
 
   position: absolute;
   /* left: 100px; */
@@ -45,9 +45,9 @@
   z-index: 1;
 }
 
-#container img {
+/* #container img {
   border: 1px solid white;
-}
+} */
 
 #startScreen {
   display: flex;
@@ -55,9 +55,9 @@
   justify-content: center;
   align-items: center;
 
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  position: relative;
+  width: 600px;
+  height: 300px;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   font-size: 20px;
@@ -66,7 +66,8 @@
 }
 
 #titleName {
-  border-bottom: 2px solid #4caf50;
+  border-bottom: 1px solid #4caf50;
+  margin-bottom: 3px;
   position: relative;
   width: 50%;
   /* background-color: blanchedalmond; */
@@ -92,9 +93,10 @@
   padding: 5px 10px;
   font-size: 18px;
   /* font-weight: bold; */
-  background-color: #4caf50;
+  background-color: transparent;
+  border: 1px solid #4caf50;
   color: #fff;
-  border: none;
+  /* border: none; */
   border-radius: 5px;
   cursor: pointer;
 }
@@ -112,12 +114,12 @@
 
 #guide {
   position: absolute;
+  display: inline-block;
   /* background-color: aliceblue; */
   color: aliceblue;
-  margin-left: 170px;
+  /* margin-left: 170px; */
   font-size: small;
-  bottom: 10px;
-  padding: 1px 3px;
+  bottom: 12px;
   z-index: 2;
 }
 
@@ -142,20 +144,33 @@
 #fox {
   position: absolute;
   width: 30px;
-  left: 0px;
-  bottom: 60px;
   /* transform: rotate(90deg) */
   /* z-index: -1; */
   transform: rotate3d(0, 0, 90, 90deg);
   display: none;
 }
+#rabbit {
+  position: absolute;
+  width: 30px;
+  left: 0;
+}
+
+
+
 
 .toEat {
   position: absolute;
   width: 40px;
   height: 40px;
-  right: 0px;
+  right: -100px;
   bottom: 40px;
+}
+
+#yammy {
+  background-color: antiquewhite;
+  font-size: xx-small;
+  border-radius: 3px;
+  padding: 3px;
 }
 
 #bone {
@@ -170,26 +185,26 @@
   position: absolute;
   width: 40px;
   height: 40px;
-  right: 0px;
+  right: -900px;
   bottom: 40px;
   transform: scaleX(-1);
 }
 
-#rabbit {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  right: 0px;
-  bottom: 40px;
-  transform: scaleX(-1);
-}
 
 #goose {
   position: absolute;
   width: 50px;
   height: 50px;
-  right: 0px;
   bottom: 36px;
+  transform: scaleX(1);
+}
+
+#star {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 11px;
+  right: 70px;
   transform: scaleX(1);
 }
 
@@ -216,7 +231,7 @@
   text-align: center;
   display: none;
   z-index: 100;
-  padding-top: 110px;
+  padding-top: 200px;
 }
 
 #gameover_msg {
@@ -235,9 +250,10 @@
   margin: 0 auto;
   padding: 5px 10px;
   font-size: 15px;
-  background-color: #fff;
+  background-color: transparent;
+  border: 1px solid white;
   color: #4caf50;
-  border: none;
+  /* border: none; */
   border-radius: 5px;
   cursor: pointer;
 }
