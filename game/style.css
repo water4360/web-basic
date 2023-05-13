@@ -33,7 +33,6 @@
   z-index: -100;
 }
 
-
 /* container의 배경에 blur요소 추가*/
 #container::before {
   content: "";
@@ -42,19 +41,13 @@
   height: 100%;
   background-position: 0px 0px;
   background-size: contain;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(2px);
   z-index: 1;
 }
 
 #container img {
   border: 1px solid white;
-
 }
-
-/* #bluredBg {
-    width: 100%;
-    filter: blur(5px);
-} */
 
 #startScreen {
   display: flex;
@@ -70,19 +63,17 @@
   font-size: 20px;
   text-align: center;
   z-index: 120;
-
-  
 }
 #titleName {
-    border-bottom: 2px solid #4caf50;
-    position: relative;
-    width: 50%;
-    /* background-color: blanchedalmond; */
-    font-size: 30px;
+  border-bottom: 2px solid #4caf50;
+  position: relative;
+  width: 50%;
+  /* background-color: blanchedalmond; */
+  font-size: 30px;
 }
 
 #titleEngName {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 
 #titleText {
@@ -95,17 +86,28 @@
 }
 
 #startButton {
-    display: block;
-    margin: 0 auto;
-    padding: 5px 10px;
-    font-size: 18px;
-    /* font-weight: bold; */
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+  display: block;
+  margin: 0 auto;
+  padding: 5px 10px;
+  font-size: 18px;
+  /* font-weight: bold; */
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#countdown {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffd000;
+  z-index: 500;
+}
 
 #guide {
   position: absolute;
@@ -196,6 +198,7 @@
   right: 20px;
   font-size: 25px;
   color: aliceblue;
+  /* display: none; */
 }
 
 #gameover_screen {
