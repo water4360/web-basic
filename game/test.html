@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>하리의 산책</title>
+    <style>
+      #container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        background-color: #f2f2f2;
+      }
+
+      #title {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      #start-button {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #game-container {
+        display: none;
+        width: 100%;
+        height: 100vh;
+        background-color: #f2f2f2;
+      }
+
+      #countdown {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 48px;
+        font-weight: bold;
+        color: #4caf50;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <span id="title"
+        >하리가 미친 거위를 피해 <br />
+        안전하게 산책을 마치고 <br />돌아갈 수 있도록 도와주세요!</span
+      >
+      <button id="start-button">게임 시작</button>
+      <div id="game-container">
+        <div id="countdown"></div>
+      </div>
+    </div>
+    <script>
+      const startButton = document.getElementById("start-button");
+      const gameContainer = document.getElementById("game-container");
+      const countdown = document.getElementById("countdown");
+
+      startButton.addEventListener("click", () => {
+        startButton.style.display = "none";
+        gameContainer.style.display = "block";
+        let count = 3;
+        countdown.innerText = count;
+        const intervalId = setInterval(() => {
+          count--;
+          countdown.innerText = count;
+          if (count === 0) {
+            clearInterval(intervalId);
+            startGame();
+          }
+        }, 1000);
+      });
+
+      function startGame() {
+        // 게임 시작
+      }
+    </script>
+  </body>
+</html>

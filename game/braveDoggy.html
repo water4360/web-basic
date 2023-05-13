@@ -23,6 +23,12 @@
       let hari;
       let friend;
 
+      //게임 시작 버튼을 누르면 안내메세지&버튼 사라지고 카운트다운 시작.
+      $('startScreen input[type="button"]').click(function () {
+        $("#startScreen").hide(); // 게임 시작 화면 숨김
+        // gameStart(); // 게임 시작
+      });
+
       $('#gameover_screen input[type="button"]').click(function () {
         $("#gameover_screen").hide(); // 게임 오버 화면 숨김
         gameStart(); // 게임 재시작
@@ -124,13 +130,13 @@
 
           let collided = false; //충돌 여부 확인
           let hasCollidedBefore = false;
-          
+
           setInterval(function () {
             if (isColliding(hari[0], toAvoid[0])) {
               collided = true;
 
               //첫 충돌일때만 점수 감소
-              if(!hasCollidedBefore) {
+              if (!hasCollidedBefore) {
                 score -= 50;
                 updateScore(score);
                 hasCollidedBefore = true;
@@ -325,20 +331,36 @@
 
   <body>
     <!-- <span id="title">하리의 산책</span> -->
-    <span id="title"
+    <!-- <span id="title"
       >하리가 미친 거위를 피해 <br />
       안전하게 산책을 마치고 <br />돌아갈 수 있도록 도와주세요!</span
-    >
+    > -->
     <div id="container">
-      <!-- <div class="sliding-background"></div> -->
-      <div>
-        <img id="hari" src="src/walking-hari.gif" alt="" />
-        <img class="friend" id="fox" src="src/fox.gif" alt="" />
+      <div id="intro">
+        <div id="startScreen">
+          <span id="titleName">하리의 평화로운 산책</span>
+            <span id="titleEngName">Hari's peaceful walk</span>
+          
+
+          <span id="titleText">
+            목표점수 1000점을 모아서 <br>
+            하리🐕가 이상한 거위🔪를 피해 <br>
+            집으로 돌아갈 수 있도록 도와주세요! <br>
+          </span>
+          <button id="startButton">게임 시작</button>
+        </div>
+        <div id="countdown"></div>
       </div>
+      <div id="contents">
+        <!-- <img id="bluredBg" src="src/forest.jpg" alt=""> -->
+        <div>
+          <img id="hari" src="src/walking-hari.gif" alt="" />
+          <img class="friend" id="fox" src="src/fox.gif" alt="" />
+        </div>
 
-      <img class="toEat" id="bone" src="src/bone.png" alt="" />
-      <img class="toAvoid" id="goose" src="src/goose.gif" alt="" />
-
+        <img class="toEat" id="bone" src="src/bone.png" alt="" />
+        <img class="toAvoid" id="goose" src="src/goose.gif" alt="" />
+      </div>
       <div id="gameover_screen">
         <span id="gameover_msg">산책 종료ㅠㅠ</span>
         <input

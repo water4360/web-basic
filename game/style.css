@@ -1,148 +1,212 @@
-       
-        * {
-            /* font-family: 'Galmuri11'; */
-            font-family: 'NeoDunggeunmoPro-Regular';
-            font-size: large;
-        }
+/* @import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css'); */
 
-        #container {
-            position: absolute;
-            left: 100px;
-            width: 600px;
-            height: 300px;
-            border: 1px black solid;
-            overflow: hidden;
-            background-image: url('src/forest.jpg');
-            background-position: 0px 0px;
-            /* background-repeat: repeat; */
-            background-size: contain;
-            z-index: -100;
-        }
+@font-face {
+  font-family: "NeoDunggeunmoPro-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/NeoDunggeunmoPro-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  /* font-family: 'Galmuri11'; */
+  font-family: "NeoDunggeunmoPro-Regular";
+  font-size: large;
+}
 
-        #container img {
-            border: 1px solid white;
-        }
+#container {
+  /* display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; */
 
-        #title {
-            position: relative;
-            width: 100%;
-            background-color: tomato;
-            font-size: larger;
-        }
+  position: absolute;
+  /* left: 100px; */
+  width: 600px;
+  height: 300px;
+  /* border: 1px black solid; */
 
-        #guide {
-            position: absolute;
-            /* background-color: aliceblue; */
-            color: aliceblue;
-            margin-left: 170px;
-            font-size: small;
-            bottom: 10px;
-            padding: 1px 3px;
-        }
-
-        #chance {
-            position: relative;
-            color: aliceblue;
-            /* font-size: small; */
-            bottom: 0px;
-        }
+  overflow: hidden;
+  background-image: url("src/forest.jpg");
+  background-position: 0px 0px;
+  /* background-repeat: repeat; */
+  background-size: contain;
+  z-index: -100;
+}
 
 
+/* container의 배경에 blur요소 추가*/
+#container::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: 0px 0px;
+  background-size: contain;
+  backdrop-filter: blur(5px);
+  z-index: 1;
+}
 
-        /* 플레이캐릭터 */
-        #hari {
-            position: absolute;
-            left: 20px;
-            bottom: 37px;
-            width: 100px;
-            height: 100px;
-            /* border: 1px solid white; */
-        }
+#container img {
+  border: 1px solid white;
 
-        /* 캐릭터 친구 */
-        #fox {
-            position: absolute;
-            width: 30px;
-            left: 0px;
-            bottom: 60px;
-            /* transform: rotate(90deg) */
-            /* z-index: -1; */
-            transform: rotate3d(0, 0, 90, 90deg);
-            display: none;
+}
 
-        }
+/* #bluredBg {
+    width: 100%;
+    filter: blur(5px);
+} */
 
-        .toEat {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            right: 0px;
-            bottom: 40px;
-        }
+#startScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-        #bone {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            right: 0px;
-            bottom: 150px;
-        }
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  z-index: 120;
 
-        .toAvoid {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            right: 0px;
-            bottom: 40px;
-            transform: scaleX(-1);
-        }
+  
+}
+#titleName {
+    border-bottom: 2px solid #4caf50;
+    position: relative;
+    width: 50%;
+    /* background-color: blanchedalmond; */
+    font-size: 30px;
+}
 
-        #rabbit {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            right: 0px;
-            bottom: 40px;
-            transform: scaleX(-1);
-        }
+#titleEngName {
+    opacity: 0.3;
+}
 
-        #goose {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            right: 0px;
-            bottom: 36px;
-            transform: scaleX(1);
-        }
+#titleText {
+  position: relative;
+  width: 100%;
+  /* background-color: blanchedalmond; */
+  font-size: small;
+  padding: 10px 0px;
+  line-height: 130%;
+}
 
-        #score {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 25px;
-            color: aliceblue;
-        }
+#startButton {
+    display: block;
+    margin: 0 auto;
+    padding: 5px 10px;
+    font-size: 18px;
+    /* font-weight: bold; */
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 
-        #gameover_screen {
+#guide {
+  position: absolute;
+  /* background-color: aliceblue; */
+  color: aliceblue;
+  margin-left: 170px;
+  font-size: small;
+  bottom: 10px;
+  padding: 1px 3px;
+  z-index: 2;
+}
 
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            font-size: 30px;
-            text-align: center;
-            line-height: 300px;
-            display: none;
-            z-index: 100;
-        }
+#chance {
+  position: relative;
+  color: aliceblue;
+  /* font-size: small; */
+  bottom: 0px;
+}
 
-         /* @import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css'); */
+/* 플레이캐릭터 */
+#hari {
+  position: absolute;
+  left: 20px;
+  bottom: 37px;
+  width: 100px;
+  height: 100px;
+  /* border: 1px solid white; */
+}
 
-         @font-face {
-            font-family: 'NeoDunggeunmoPro-Regular';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/NeoDunggeunmoPro-Regular.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-        }
+/* 캐릭터 친구 */
+#fox {
+  position: absolute;
+  width: 30px;
+  left: 0px;
+  bottom: 60px;
+  /* transform: rotate(90deg) */
+  /* z-index: -1; */
+  transform: rotate3d(0, 0, 90, 90deg);
+  display: none;
+}
 
+.toEat {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right: 0px;
+  bottom: 40px;
+}
+
+#bone {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 0px;
+  bottom: 150px;
+}
+
+.toAvoid {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right: 0px;
+  bottom: 40px;
+  transform: scaleX(-1);
+}
+
+#rabbit {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right: 0px;
+  bottom: 40px;
+  transform: scaleX(-1);
+}
+
+#goose {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  right: 0px;
+  bottom: 36px;
+  transform: scaleX(1);
+}
+
+#score {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 25px;
+  color: aliceblue;
+}
+
+#gameover_screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  line-height: 300px;
+  display: none;
+  z-index: 100;
+}
