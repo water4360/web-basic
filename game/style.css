@@ -166,6 +166,7 @@
   bottom: 40px;
 }
 
+//하리야 글자
 #yammy {
   background-color: antiquewhite;
   font-size: xx-small;
@@ -216,6 +217,20 @@
   color: aliceblue;
   /* display: none; */
 }
+
+
+#house {
+  position: absolute;
+  width: 300px;
+  bottom: 35px;
+  right: 20px;
+  /* border: 1px solid white; */
+  /* background-color: aliceblue; */
+  /* display: none; */
+}
+
+
+
 
 #gameover_screen {
   display: flex;
