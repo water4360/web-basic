@@ -87,7 +87,7 @@
 
       ///////////////게임 시작시 모든 함수 실행
       function gameStart() {
-
+        $('#bgmusic').get(0).play();
 
         contents.show();
 
@@ -127,14 +127,18 @@
         // const food = $("#yammy");
         // 속도 조절
         const speed = getRandomNumber(2000, 3000);
+        const range = getRandomNumber(200, 500);
 
-        
-        // 음식이 우측으로부터 800px까지 이동
-        food.animate({ right: "800px" }, speed, "linear", function () {
-          // 음식 리필
-          food.css("right", "-50px");
-          objFood();
-        });
+        // 위에서부터 좌우위치 랜덤으로 낙하
+
+        food.css("left", range + "px")
+          .css("top", "0px")
+          .animate(
+            { top: "300px" }, speed, "linear", function () {
+              // 음식 리필
+              food.css("right", "-50px");
+              objFood();
+            }, 900);
 
         //먹으면 점수 증가
         setInterval(function () {
@@ -158,7 +162,7 @@
         // 장애물이 오른쪽에서 왼쪽으로
         goose.animate({ right: "800px" }, speed, "linear", function () {
           // 구스 리셋
-          goose.css("right", "-300px");
+          goose.css("right", "-300px").css("display", "block");")";
           objToAvoid();
         });
 
@@ -209,9 +213,9 @@
         const char = {
           //230513 22:03 1차 수정
           bottom: object1.getBoundingClientRect().bottom,
-          top: object1.getBoundingClientRect().top + 40,
-          right: object1.getBoundingClientRect().right - 20,
-          left: object1.getBoundingClientRect().left + 50,
+          top: object1.getBoundingClientRect().top + 30,
+          right: object1.getBoundingClientRect().right + 20,
+          left: object1.getBoundingClientRect().left + 20,
         };
 
         const obj = object2.getBoundingClientRect();
@@ -259,8 +263,6 @@
         });
       }
 
-      // 점프 중인지?
-      let isJumping = false;
 
       // 키보드 이벤트 정의
       function setKeyboardEvent() {
@@ -277,13 +279,12 @@
               moveRight();
               break;
             case " ": //spacebar
-              if (!isJumping) {
+              if (!isJumping)
                 jump();
-              }
               break;
-            // spacebar 입력시 친구호출ㅋㅋ
             case "F":
             case "f":
+              if(!isCalled)
               callBunny();
               break;
             case "R":
@@ -295,9 +296,9 @@
         });
 
         function moveLeft() {
-          hari.animate({ left: "-=10px" }, 0);
+          hari.animate({ left: "-=20px" }, 0);
           if (hari.position().left < 0) {
-            hari.animate({ left: "+=10px" }, 0);
+            hari.animate({ left: "+=20px" }, 0);
           }
           //왼쪽벽에 닿는지
           const hariLeftMargin = hari.position().left;
@@ -306,10 +307,10 @@
           }
         }
         function moveRight() {
-          hari.animate({ left: "+=10px" }, 0);
+          hari.animate({ left: "+=20px" }, 0);
           //1번
           if (hari.position().left > 450) {
-            hari.animate({ left: "-=10px" }, 0);
+            hari.animate({ left: "-=20px" }, 0);
           }
           //오른쪽 한계
           const hariRightMargin = hari.position().left;
@@ -317,22 +318,28 @@
             hari.animate({ left: "-=10px" }, 0);
           }
         }
+        // 점프 중인지?
+        let isJumping = false;
         function jump() {
           isJumping = true;
           hari
-            .animate({ bottom: "+=100px" }, 300)
-            .animate({ bottom: "-=100px" }, 1200, function () {
+            .animate({ bottom: "+=110px" }, 300)
+            .animate({ bottom: "-=110px" }, 500, function () {
               isJumping = false;
             }); //합쳐줬음
         }
 
 
-
-
+        let isCalled = false;
         // 필살기, 친구 부르기
         function callBunny() {
+          isCalled = true;
+
           //bunny = $("#rabbit"); 이건 안되고...
           let bunny = $("#rabbit");
+
+          $('#bark').get(0).play();
+
           const initialPosition = bunny.position().left;
 
           bunny.animate(
@@ -341,34 +348,37 @@
             300,
             "linear",
             function () {
+              //돌아올때 방향전환
               bunny.css("transform", "scaleX(-1)");
               bunny.animate(
                 { left: initialPosition + "px" },
                 1000,
                 "linear",
                 function () {
+                  //그리고 다시 원상태
                   bunny.css("transform", "none");
                 }
               )
             })
-            killGoose();
+            // killGoose();
+            // const fox = document.querySelector("#fox");
+            
+            //토끼의 거위잡기
+            function killGoose() {
+              const bunny = document.querySelector("#rabbit");
+              const bunnyRect = bunny.getBoundingClientRect();
+              const goose = document.querySelector("#goose");
+              const gooseRect = goose.getBoundingClientRect();
+
+                if (bunnyRect.x + bunnyRect.width > gooseRect.x) {
+                  // alert("거위를 잡았다!");
+                  goose.style.display = "none";
+                }
+            }
+            setInterval(killGoose, 1000 / 60);
+            isCalled = false;
+
         }
-        // const fox = document.querySelector("#fox");
-        // const bunny = document.querySelector("#rabbit");
-        // const goose = document.querySelector("#goose");
-
-        //토끼의 거위잡기
-        function killGoose() {
-          const bunnyRect = bunny.getBoundingClientRect();
-          const gooseRect = goose.getBoundingClientRect();
-
-          if (bunnyRect.x + bunnyRect.width > gooseRect.x) {
-            // alert("거위를 잡았다!");
-            goose.css.hide();
-          }
-        }
-
-        setInterval(killGoose, 1000 / 60);
       }
       // });
 
@@ -442,12 +452,15 @@
         <img id="hari" src="src/walking-hari.gif" alt="" />
         <img class="friend" id="fox" src="src/fox.gif" alt="" />
         <img class="friend" id="rabbit" src="src/rabbit.gif" alt="" />
+        
+        <audio id="bark" src="src/audio/dogbark.wav"></audio>
+        <audio  id="bgmusic" src="src/audio/8bit Bossa.mp3"></audio>
       </div>
 
       <!-- <span class="food" id="yammy">하리야💕</span> -->
       <img class="food" id="bone" src="src/heart.gif" alt="" />
       <img class="toAvoid" id="goose" src="src/goose.gif" alt="" />
-      <img id="house" src="src/dcavp71-0aaaecf4-0e81-48dc-b4c9-4a1562752140.png" alt="">
+      <!-- <img id="house" src="src/dcavp71-0aaaecf4-0e81-48dc-b4c9-4a1562752140.png" alt=""> -->
       <img id="star" src="src/star.gif" alt="">
       <div id="score">000점</div>
     </div>
