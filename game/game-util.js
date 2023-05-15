@@ -6,6 +6,7 @@ let bunny;
 let food;
 let goose;
 let sister;
+let heart;
 // let score = $("#score");
 
 //모든 오브젝트가 준비되면 변수할당&실행
@@ -18,6 +19,7 @@ $(document).ready(function () {
   food = $(".food");
   goose = $(".toAvoid");
   sister = $("#sister");
+  heart = $("#heart");
   countdown = $("#countdown");
 
   //초기화면 세팅
@@ -26,6 +28,7 @@ $(document).ready(function () {
   countdown.hide();
   $("#guide").hide();
   $("#gameclear_screen").hide();
+  heart.hide();
 
   // let isClear = false;
 
@@ -97,7 +100,7 @@ $(document).ready(function () {
     let whereHari = hari.position();
 
     bunny.css({
-      left: whereHari.left - 10 + "px",
+      left: whereHari.left + 10 + "px",
       top: whereHari.top + 60 + "px",
     });
   }
@@ -204,6 +207,11 @@ $(document).ready(function () {
 
     if (parseInt(currentScore.text()) < 0) {
       currentScore.css("color", "red");
+    } else if (parseInt(currentScore.text()) === 100) {
+      currentScore
+        .css("font-size", "xx-large")
+        .css("background-color", "white")
+        .css("color", "#4caf50");
     } else {
       currentScore.css("color", "aliceblue");
     }
@@ -240,9 +248,10 @@ $(document).ready(function () {
   function checkGameClear() {
     setInterval(function () {
       // console.log(score > 100);
-      if (score >= 100) {
+      if (score === 1000) {
         isClear = true;
-        console.log("gameClear!!");
+
+        // console.log("gameClear!!");
         // hari.stop();
         goose.stop();
         food.stop();
@@ -251,29 +260,25 @@ $(document).ready(function () {
         goose.hide();
         food.hide();
 
-        sister = $("#sister");
-
         hari
-          .css("left", 50 + "px")
-          .animate({ left: "300px" }, 3500, "linear", function () {
-            // console.log("하리이동!");
-            sister
-              .css("display", "block")
-              .css("right", -40 + "px")
-              .animate({ right: "100px" }, 1500, "linear", function () {
-                // console.log("언니이동!");
-                $("#symbol").css("display", "block");
-                // alert("하트뿅!");
-              });
+        .css("left", -50 + "px")
+        .animate({ left: "220px" }, 4500, "linear", function () {
+              // console.log("하리이동!");
+            });
+          heart.show();
+          sister
+          .css("display", "block")
+          .css("right", -80 + "px")
+          .animate({ right: "220px" }, 4500, "linear", function () {
+            // console.log("언니이동!");
           });
-
-        // 5초 후에 $('#sleeping-hari').display('block') 함수가 실행되고, 3초 후에 산책완료 메세지를 출력
-        setTimeout(function () {
+          
+          setTimeout(function () {
           $("#gameclear_screen").show();
           setTimeout(function () {
             $("#gameclear_msg").show();
           }, 3000);
-        }, 6000);
+        }, 6500);
 
         clearInterval(this);
       }

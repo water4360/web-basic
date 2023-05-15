@@ -41,8 +41,8 @@
   height: 100%;
   background-position: 0px 0px;
   background-size: contain;
-  backdrop-filter: blur(px);
-  z-index: 1;
+  /* backdrop-filter: blur(3px); */
+  /* z-index: -300; */
 }
 
 
@@ -154,13 +154,6 @@
   /* border: 1px solid white; */
 }
 
-#symbol {
-  position: absolute;
-  width: 30px;
-  display: none;
-  right: 170px;
-  /* animation: jump 0.5s ease-in-out; */
-}
 
 #sister {
   position: absolute;
@@ -184,8 +177,17 @@
 #rabbit {
   position: absolute;
   width: 30px;
-  left: 0;
   z-index: 3;
+}
+
+
+#heart {
+  position: absolute;
+  width: 30px;
+  /* display: none; */
+  /* right: 170px; */
+  /* transform: rotateY(180deg); */
+  /* animation: jump 0.5s ease-in-out; */
 }
 
 .toEat {
@@ -353,11 +355,9 @@
 #sleeping-hari {
   position: absolute;
   margin: 0 auto;
-  animation: show_image fadein 5s;
-  animation: zoomin 8s;
+  animation: show_image fadein 10s;
+  animation: zoomin 10s;
   width: 600px;
-  /* animation: jump 0.5s ease-in-out; */
-  /* transform: rotate3d(0, 0, 90, 90deg); */
   display: block;
 }
 @keyframes show_image {
@@ -370,7 +370,7 @@
 }
 @keyframes zoomin {
   from {
-    transform: scale(1);
+    transform: scale(0.8);
   }
   to {
     transform: scale(1.1);
