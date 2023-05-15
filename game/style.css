@@ -25,7 +25,7 @@
   height: 300px;
   /* border: 1px black solid; */
 
-  overflow: hidden;
+  /* overflow: hidden; */
   background-image: url("src/forest.jpg");
   background-position: 0px 0px;
   /* background-repeat: repeat; */
@@ -45,11 +45,13 @@
   z-index: 1;
 }
 
-/* #container img {
-  border: 1px solid white;
-} */
 
-#startScreen {
+/* 오브젝트 경계선 확인용 */
+#container img {
+  border: 1px solid white;
+}
+
+#start_screen {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,7 +110,10 @@
   transform: translate(-50%, -50%);
   font-size: 48px;
   font-weight: bold;
-  color: #ffd000;
+  /* color: #ffd000; */
+  color: #fff;
+  /* background-color: white; */
+  border-radius: 5px;
   z-index: 500;
 }
 
@@ -138,6 +143,16 @@
   width: 100px;
   height: 100px;
   /* border: 1px solid white; */
+}
+
+#jump-hari {
+  position: absolute;
+  left: 20px;
+  bottom: 37px;
+  width: 100px;
+  height: 100px;
+  /* border: 1px solid white; */
+  /* animation: jump 0.5s ease-in-out; */
 }
 
 /* 캐릭터 친구 */
@@ -175,10 +190,10 @@
 
 #bone {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   right: 0px;
-  bottom: 150px;
+  top: -20px;
 }
 
 .toAvoid {
@@ -196,6 +211,7 @@
   width: 50px;
   height: 50px;
   bottom: 36px;
+  right: -50px;
   transform: scaleX(1);
 }
 
@@ -244,23 +260,25 @@
   font-size: 20px;
   text-align: center;
   display: none;
-  z-index: 100;
-  padding-top: 200px;
+  z-index: 130;
+  /* padding-top: 200px; */
 }
 
 #gameover_msg {
-  display: block;
+  display: inline-block;
   position: relative;
   width: 100%;
   background-color: white;
   color: rgb(75, 75, 75);
   font-size: small;
   padding: 5px 0px;
+  margin-top: 100px;
+  margin-bottom: 5px;
   /* line-height: 130%; */
 }
 
 #retryButton {
-  display: block;
+  display: inline-block;
   margin: 0 auto;
   padding: 5px 10px;
   font-size: 15px;
