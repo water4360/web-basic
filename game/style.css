@@ -41,8 +41,21 @@
   height: 100%;
   background-position: 0px 0px;
   background-size: contain;
-  backdrop-filter: blur(0px);
+  backdrop-filter: blur(px);
   z-index: 1;
+}
+
+
+#guide {
+  position: absolute;
+  width: 100%;
+  /* background-color: aliceblue; */
+  color: aliceblue;
+  font-size: small;
+  text-align: center;
+  left: 0px;
+  bottom: 12px;
+  z-index: 2;
 }
 
 /* 오브젝트 경계선 확인용 */
@@ -65,6 +78,20 @@
   text-align: center;
   z-index: 120;
 }
+
+#developer_info {
+  position: relative;
+  display: inline-bloc;
+  bottom: -54px;
+  text-decoration: none;
+  font-size: small;
+  /* background-color: #4caf50; */
+  color: #fff;
+  /* opacity: 0.5; */
+  padding: 0px 3px 0px 3px;
+  border-radius: 3px;
+}
+
 
 #titleName {
   border-bottom: 1px solid #4caf50;
@@ -116,32 +143,31 @@
   z-index: 500;
 }
 
-#guide {
-  position: absolute;
-  display: inline-block;
-  /* background-color: aliceblue; */
-  color: aliceblue;
-  /* margin-left: 170px; */
-  font-size: small;
-  bottom: 12px;
-  z-index: 2;
-}
-
-#chance {
-  position: relative;
-  color: aliceblue;
-  /* font-size: small; */
-  bottom: 0px;
-}
 
 /* 플레이캐릭터 */
 #hari {
   position: absolute;
   left: 20px;
   bottom: 37px;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   /* border: 1px solid white; */
+}
+
+#symbol {
+  position: absolute;
+  width: 30px;
+  display: none;
+  right: 170px;
+  /* animation: jump 0.5s ease-in-out; */
+}
+
+#sister {
+  position: absolute;
+  bottom: 31px;
+  /* right: -60px; */
+  transform : rotateY(180deg);
+  display: none;
 }
 
 #jump-hari {
@@ -155,18 +181,11 @@
 }
 
 /* 캐릭터 친구 */
-#fox {
-  position: absolute;
-  width: 30px;
-  /* transform: rotate(90deg) */
-  /* z-index: -1; */
-  transform: rotate3d(0, 0, 90, 90deg);
-  display: none;
-}
 #rabbit {
   position: absolute;
   width: 30px;
   left: 0;
+  z-index: 3;
 }
 
 .toEat {
@@ -177,19 +196,13 @@
   bottom: 40px;
 }
 
-#yammy {
-  background-color: antiquewhite;
-  font-size: xx-small;
-  border-radius: 3px;
-  padding: 3px;
-}
 
-#bone {
+#food {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  right: 0px;
-  top: -20px;
+  width: 30px;
+  height: 30px;
+  left: 0px;
+  top: -30px;
 }
 
 .toAvoid {
@@ -203,8 +216,8 @@
 
 #goose {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   bottom: 36px;
   right: -50px;
   transform: scaleX(1);
@@ -383,20 +396,21 @@
 }
 
 #gameover_msg {
-  display: inline-block;
+  display: block;
   position: relative;
   width: 100%;
   background-color: white;
   color: rgb(75, 75, 75);
   font-size: small;
   padding: 5px 0px;
-  margin-top: 100px;
-  margin-bottom: 5px;
+  top: 120px;
+  /* margin-top: 100px; */
+  /* margin-bottom: 5px; */
 }
 
 #retryButton {
-  display: inline-block;
-  margin: 0 auto;
+  display: block;
+  margin: 130px auto;
   padding: 5px 10px;
   font-size: 15px;
   background-color: transparent;

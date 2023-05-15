@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>::용감한 하리의 산책::</title>
+    <!-- <script
+      src="https://code.jquery.com/jquery-3.6.4.js"
+      integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+      crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="game-util.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <div id="intro">
+            <div id="start_screen">
+                <span id="titleName">용감한 하리의 산책</span>
+                <!-- <span id="titleEngName">Hari's peaceful walk</span> -->
+
+                <span id="titleText">
+                    <!-- 목표점수 1000점을 모아서 <br /> -->
+                    하리🐕가 이상한 거위🔪를 피해 <br />
+                    집으로 돌아갈 수 있도록 도와주세요! <br />
+                    <br>
+                    [목표점수 1000점]
+                </span>
+                <button id="startButton">시작하기</button>
+                <!-- a 링크로 열었을 때 새창으로 열기 -->
+
+
+
+                <a href="https://github.com/water4360" target="_blank" id="developer_info">🔗 github.com/water4360 </a>
+                <span id="developer_info">📧 water4360@naver.com</span>
+            </div>
+            <div id="countdown">3</div>
+            <div id="guide">
+                이동 : A◀ ▶D&nbsp&nbsp&nbsp점프 : [spacebar]&nbsp&nbsp&nbsp🐇 : F
+            </div>
+        </div>
+
+        <div id="contents">
+            <div>
+                <img class="friend" id="rabbit" src="src/rabbit.gif" alt="" />
+                <img id="hari" src="src/origin/walking-hari.gif" alt="">
+                <img id="symbol" src="src/sparcle_heart.gif" alt="">
+                <img id="sister" src="src/sister.gif" alt="">
+                <!-- <img id="jump-hari" src="src/jumping-hari.png" alt=""> -->
+
+                <audio id="bark" src="src/audio/dogbark.wav"></audio>
+                <audio id="bgmusic" src="src/audio/8bit Bossa.mp3"></audio>
+            </div>
+
+            <img class="food" id="food" src="src/heart.gif" alt="" />
+            <img class="toAvoid" id="goose" src="src/goose.gif" alt="" />
+
+            <img id="star" src="src/star.gif" alt="">
+            <div id="score">000점</div>
+        </div>
+
+
+        <div id="gameover_screen">
+            <span id="gameover_msg" style="color: red;">
+                <산책 실패😥>
+            </span>
+            <span id="gameover_msg">💡게임을 클리어하면 진짜 하리를 만날 수 있어요!</span>
+            <button id="retryButton" onclick="window.location.reload();">다시 도전하기[R]</button>
+        </div>
+
+        <div id="gameclear_screen">
+            <div id="topframe"></div>
+            <div id="bottomframe"></div>
+            <img id="clearStar" src="src/star.gif" alt="">
+            <span id="gameclear_msg">산책성공!!</span>
+            <span id="gameclear_text">산책에서 돌아온 하리는 아주 달콤한 낮잠을 잘 수 있었습니다💕</span>
+
+
+            <div id="theEnd"></div>
+            <span id="thx">감사합니다😊</span>
+            <img id="sleeping-hari" src="src/sleeping-hari.jpg" alt="">
+        </div>
+
+
+
+
+
+    </div>
+</body>
+
+</html>
