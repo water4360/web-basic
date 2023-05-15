@@ -22,6 +22,9 @@ $(document).ready(function () {
   moveBackground();
   contents.hide(); //hari, food, goose, score, countdown 포함
   countdown.hide();
+  $("#gameclear_screen").hide();
+
+  let isClear = false;
 
   //배경화면 움직이기
   function moveBackground() {
@@ -58,9 +61,10 @@ $(document).ready(function () {
   }
 
   //게임 시작(임시 확인용)
-  gameStart();
-  $("#start_screen").hide();
+  //   gameStart();
+  //   $("#start_screen").hide();
   // $('#gameover_screen').show();
+  // $('#gameclear_screen').show();
 
   ///////////////게임 시작시 모든 함수 실행
   function gameStart() {
@@ -70,14 +74,16 @@ $(document).ready(function () {
 
     setKeyboardEvent();
 
-    let randomTime = getRandomNumber(3000, 5000);
+    setTimeout(function () {
+      objFood();
+    }, 3000);
 
-    objFood();
-    objToAvoid();
+    setTimeout(function () {
+      objToAvoid();
+    }, 5000);
 
     checkGameOver();
     checkGameClear();
-
     $("#gameover_screen").hide();
   }
 
@@ -104,7 +110,8 @@ $(document).ready(function () {
     // const food = $("#yammy");
     // 속도 조절
     const speed = getRandomNumber(2000, 3000);
-    const range = getRandomNumber(-100, 500);
+    const range = getRandomNumber(200, 500);
+    const time = getRandomNumber(2000, 5000);
 
     // 위에서부터 좌우위치 랜덤으로 낙하
 
@@ -117,11 +124,9 @@ $(document).ready(function () {
         "linear",
         function () {
           // 음식 리필
-
           setTimeout(function () {
-            objToAvoid();
-          }, randomTime);
-          food.css("right", "-50px");
+            food.css("top", "-50px");
+          }, time);
           objFood();
         },
         900
@@ -143,10 +148,10 @@ $(document).ready(function () {
   //////////////////////피해야할 오브젝트
   function objToAvoid() {
     // 속도 조절
-    const speed = getRandomNumber(1500, 3000);
+    const speed = getRandomNumber(2000, 4000);
 
     // 장애물이 오른쪽에서 왼쪽으로
-    goose.animate({ right: "800px" }, speed, "linear", function () {
+    goose.animate({ right: "700px" }, speed, "linear", function () {
       // 구스 리셋
       goose.css("right", "0px").css("display", "block");
       (")");
@@ -189,7 +194,7 @@ $(document).ready(function () {
     // const char = object1.getBoundingClientRect();
     const char = {
       //230513 22:03 1차 수정
-      bottom: object1.getBoundingClientRect().bottom,
+      bottom: object1.getBoundingClientRect().bottom - 20,
       top: object1.getBoundingClientRect().top + 30,
       right: object1.getBoundingClientRect().right - 10,
       left: object1.getBoundingClientRect().left + 20,
@@ -208,17 +213,23 @@ $(document).ready(function () {
   ///////////////게임클리어 조건
   function checkGameClear() {
     setInterval(function () {
-      // console.log(score);
       // console.log(score > 100);
-      if (score > 300) {
-        // alert("게임 클리어!");
-        // food.fadeOut(3000)
-        // toAvoid.fadeOut;
+      if (score >= 1000) {
+        isClear = true;
+        console.log("gameClear!!");
+        // hari.stop();
+        goose.stop();
+        food.stop();
+        bunny.hide();
 
-        //하리 잠든 사진, 산책 끝!
-        // $("#gameclear_screen").show();
-        // contents.css.transition = "all 2s";
-        // alert("산책 완료!");
+        // 5초 후에 $('#sleeping-hari').display('block') 함수가 실행되고, 3초 후에 산책완료 메세지를 출력
+        setTimeout(function () {
+          $("#gameclear_screen").show();
+          setTimeout(function () {
+            $("#gameclear_msg").show();
+          }, 3000);
+        }, 10000);
+
         clearInterval(this);
       }
     }, 1000 / 60);
@@ -228,7 +239,7 @@ $(document).ready(function () {
   function checkGameOver() {
     const isGameOver = false;
     setInterval(function () {
-      if (score <= -500) {
+      if (score <= -200) {
         hari.stop();
         food.stop();
         goose.stop();

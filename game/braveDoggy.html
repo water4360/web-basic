@@ -38,12 +38,12 @@
       <div>
         <!-- <img id="hari" src="src/walking-hari.gif" alt="" /> -->
         <img src="src/origin/walking-hari.gif" alt="" id="hari">
-        <img class="friend" id="fox" src="src/fox.gif" alt="" />
         <img class="friend" id="rabbit" src="src/rabbit.gif" alt="" />
         <!-- <img id="jump-hari" src="src/jumping-hari.png" alt=""> -->
         
         <audio id="bark" src="src/audio/dogbark.wav"></audio>
         <audio  id="bgmusic" src="src/audio/8bit Bossa.mp3"></audio>
+
       </div>
 
       <!-- <span class="food" id="yammy">하리야💕</span> -->
@@ -53,15 +53,30 @@
       <img id="star" src="src/star.gif" alt="">
       <div id="score">000점</div>
     </div>
-
-
+    
+    
     <div id="gameover_screen">
-      <span id="gameover_msg">
-        <산책 실패😥><br>💡게임을 클리어하면 진짜 하리를 만날 수 있어요!
-      </span> <br>
-      <button id="retryButton" onclick="window.location.reload();">다시 도전하기[R]</button>
-      <!-- <button id="retryButton" onclick="$().gameStart()">다시 도전하기[R]</button> -->
+        <span id="gameover_msg">
+            <산책 실패😥><br>💡게임을 클리어하면 진짜 하리를 만날 수 있어요!
+        </span> <br>
+        <button id="retryButton" onclick="window.location.reload();">다시 도전하기[R]</button>
+        <!-- <button id="retryButton" onclick="$().gameStart()">다시 도전하기[R]</button> -->
     </div>
+    
+    <div id="gameclear_screen">
+        <div id="topframe"></div>
+        <div id="bottomframe"></div>
+        <img id="clearStar" src="src/star.gif" alt="">
+        <span id="gameclear_msg">산책성공!!</span>
+        <span id="gameclear_text">용감한 강아지 하리는 오래오래 행복하게 살았습니다💕</span>
+        
+        <div id="theEnd"></div>
+        <span id="thx">감사합니다😊</span>
+        <img id="sleeping-hari" src="src/sleeping-hari.jpg" alt="">
+    </div>
+
+
+
 
     <div id="guide">
       이동 : A◀ ▶D&nbsp&nbsp&nbsp점프 : [spacebar]&nbsp&nbsp&nbsp🐇 : F
