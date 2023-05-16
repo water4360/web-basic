@@ -29,6 +29,7 @@ $(document).ready(function () {
   $("#guide").hide();
   $("#gameclear_screen").hide();
   heart.hide();
+  // $("#restartButton").hide();
 
   // let isClear = false;
 
@@ -72,7 +73,7 @@ $(document).ready(function () {
   // gameStart();
   // $("#start_screen").hide();
   //   $('#gameover_screen').show();
-  // $('#gameclear_screen').show();
+  // $("#gameclear_screen").show();
 
   ///////////////게임 시작시 모든 함수 실행
   function gameStart() {
@@ -207,12 +208,12 @@ $(document).ready(function () {
 
     if (parseInt(currentScore.text()) < 0) {
       currentScore.css("color", "red");
-    // } else if (parseInt(currentScore.text()) === 100) {
-    //   currentScore
-    //     .css("font-size", "xx-large")
-    //     .css("background-color", "white")
-    //     .css("color", "#4caf50");
-    // } else {
+      // } else if (parseInt(currentScore.text()) === 100) {
+      //   currentScore
+      //     .css("font-size", "xx-large")
+      //     .css("background-color", "white")
+      //     .css("color", "#4caf50");
+      // } else {
       currentScore.css("color", "aliceblue");
     }
   }
@@ -261,25 +262,27 @@ $(document).ready(function () {
         food.hide();
 
         hari
-        .css("left", -50 + "px")
-        .animate({ left: "220px" }, 4500, "linear", function () {
-              // console.log("하리이동!");
-            });
-          heart.show();
-          sister
+          .css("left", -50 + "px")
+          .animate({ left: "220px" }, 4500, "linear", function () {
+            // console.log("하리이동!");
+          });
+        heart.show();
+        sister
           .css("display", "block")
           .css("right", -80 + "px")
           .animate({ right: "220px" }, 4500, "linear", function () {
             // console.log("언니이동!");
           });
+          setTimeout(function () {
+            $("#gameclear_screen").show();
+            setTimeout(function () {
+              $("#gameclear_msg").show();
+            }, 3000);
+            $("#restartButton").click(function () {
+              location.reload();
+            });
+          }, 6500);
           
-          setTimeout(function () {
-          $("#gameclear_screen").show();
-          setTimeout(function () {
-            $("#gameclear_msg").show();
-          }, 3000);
-        }, 6500);
-
         clearInterval(this);
       }
     }, 1000 / 60);
@@ -323,7 +326,7 @@ $(document).ready(function () {
           break;
         case "R":
         case "r":
-          retry();
+          window.location.reload();
           break;
       }
       console.log(e.key);
@@ -423,7 +426,4 @@ $(document).ready(function () {
   // });
 
   ///////////다시하기
-  function retry() {
-    $("#gameover_screen").hide();
-  }
 }); //ready 함수 끝

@@ -140,7 +140,7 @@
   color: #ffc800;
   /* background-color: white; */
   border-radius: 5px;
-  z-index: 500;
+  z-index: 150;
 }
 
 
@@ -419,4 +419,18 @@
   /* border: none; */
   border-radius: 5px;
   cursor: pointer;
+}
+#restartButton {
+  position: relative;
+  display: inline-block;
+  bottom: -60px;
+  margin: 130px auto;
+  padding: 5px 10px;
+  font-size: 15px;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 250;
 }
