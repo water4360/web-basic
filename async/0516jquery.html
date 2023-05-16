@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 스크립트 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function loadDoc() {
+            $('#demo').load("ajax_info.txt");
+            
+            //여기도 역시 naver는 안됨
+            // $('#demo').load("https://www.naver.com");
+        }
+    </script>
+</head>
+
+<body>
+    <div id="demo"></div>
+    <input type="button" value="실행" onclick="loadDoc()">
+</body>
+
+</html>
