@@ -207,12 +207,12 @@ $(document).ready(function () {
 
     if (parseInt(currentScore.text()) < 0) {
       currentScore.css("color", "red");
-    } else if (parseInt(currentScore.text()) === 100) {
-      currentScore
-        .css("font-size", "xx-large")
-        .css("background-color", "white")
-        .css("color", "#4caf50");
-    } else {
+    // } else if (parseInt(currentScore.text()) === 100) {
+    //   currentScore
+    //     .css("font-size", "xx-large")
+    //     .css("background-color", "white")
+    //     .css("color", "#4caf50");
+    // } else {
       currentScore.css("color", "aliceblue");
     }
   }
