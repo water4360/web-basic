@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+
+    <!-- 스크립트 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- 스타일시트 -->
+    <link rel="stylesheet" href="exam05.css" />
+
+</head>
+
+<body onload="loadMovies()">
+    <header>MOVIE LIST</header>
+    <div id="container"></div>
+
+
+
+    <script>
+        //영화정보 받아오기(https://api.themoviedb.org)
+        async function loadMovies() {
+            const response = await fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1');
+            const data = await response.json();
+            const movies = data.results;
+
+
+            //영화개별정보를 card에 저장.
+            movies.forEach(movie => {
+                const card = `<div class="card" data-movieid="${movie.id}">
+                            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+                            <button id="move-to-detail">상세보기</button>
+                            <div class="movie-details"><div id="movie-rate">평점 ${movie.vote_average}</div>
+                            <div id="movie-title">${movie.title}</div></div></div>`;
+                $('#container').append(card);
+            });
+            
+            // 버튼 숨기기 되긴 됨.
+            // $('button').hide();
+
+            //card를 클릭시 해당 영화 상세페이지로 이동.
+            $('.card').click(function () {
+                const movieId = $(this).data('movieid');
+
+                location.href = `https://www.themoviedb.org/movie/${movieId}`;
+            });
+        }
+    </script>
+    <footer></footer>
+</body>
+
+</html>
