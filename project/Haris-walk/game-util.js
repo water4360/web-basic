@@ -119,7 +119,7 @@ $(document).ready(function () {
   function objFood() {
     // const food = $("#yammy");
     // 속도 조절
-    const speed = getRandomNumber(2000, 3000);
+    const speed = getRandomNumber(3000, 4000);
     const range = getRandomNumber(100, 400);
     const time = getRandomNumber(2000, 5000);
 

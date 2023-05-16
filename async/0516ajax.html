@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function loadDoc() {
+
+        //기본적으로 통신하는 객체. 자바처럼 new 해서 객체생성해서 씀.
+        var xhttp = new XMLHttpRequest();
+        //상태가 변하면 함수호출.
+        xhttp.onreadystatechange = function () {
+            //각각의 status 코드에 대한 내용은 MDN 참고할 것.
+            //1은 true, 0은 false처럼 정해진 값들이 있음.
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("demo").innerHTML =
+                    //서버가 주는 값
+                    this.responseText;
+            }
+        };
+        //통신을 위한 기본 메소드(+더 있음)
+        //GET : 얻기
+        //POST : 쓰기
+        //UPDATE : 업데이트
+        //DELETE : 삭제
+        
+        //일단 동일경로에 아래 파일명대로 만들었음.
+        xhttp.open("GET", "ajax_info.txt", true);
+
+        //naver도 될까?
+        //안됨. 이게 바로 cross-domain 이슈.
+        //내 컴터 내에 있는 것만 가져올 수 있음.
+        // xhttp.open("GET", "https://www.naver.com", true);
+        xhttp.send();
+    }
+
+</script>
+
+<body>
+    <div id="demo"></div>
+    <input type="button" value="실행" onclick="loadDoc()">
+</body>
+
+</html>
