@@ -2,74 +2,111 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie info</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        @font-face {
-            font-family: 'SUIT-Regular';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-        }
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie info</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    @font-face {
+      font-family: 'SUIT-Regular';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-        body {
-            font-family: 'SUIT-Regular';
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
+    body {
+      font-family: 'SUIT-Regular';
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: none;
+    }
 
-        #movieDetails {
-            list-style: none;
-            padding: 0;
-        }
+    #backgroundOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      z-index: 0;
+    }
 
-        #movieDetails header {
-            font-size: 30px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
+    #movieDetails {
+      list-style: none;
+      color: white;
+      padding: 0;
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 1;
+    }
 
-        #movieDetails img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            margin-bottom: 10px;
-        }
+    #movieDetails header {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: white;
+    }
 
-        #movieDetails div {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
+    #movieDetails img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      margin-bottom: 10px;
+      float: left;
+      margin-right: 20px;
+      filter: drop-shadow(0 0 15px rgb(255, 255, 255));
+    }
 
-        #movieDetails p {
-            text-align: center;
-        }
-    </style>
+    #movieDetails p {
+      font-size: 18px;
+      text-align: left;
+      color: white;
+    }
+  </style>
 </head>
 
 <body>
-    <ul id="movieDetails"></ul>
-    <script>
-        const params = new URLSearchParams(location.search);
-        const movieId = params.get('movieId');
+  <div id="backgroundOverlay"></div>
+  <ul id="movieDetails"></ul>
 
-        async function showMovieDetails() {
-            const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1`);
-            const detail = await response.json();
+  <script>
+    const params = new URLSearchParams(location.search);
+    const movieId = params.get('movieId');
 
-            const listDetail = `<header>${detail.title}</header>
-                <img id="poster" src="https://image.tmdb.org/t/p/w500${detail.poster_path}" alt="${detail.title}">
-                <div id="release-date">${detail.release_date}, ${detail.vote_average}</div>
-                <p>${detail.overview}</p>`;
-            $('#movieDetails').append(listDetail);
-        }
-        showMovieDetails();
-    </script>
+    async function showMovieDetails() {
+      const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1`);
+      const detail = await response.json();
+
+      // 배경화면 설정
+      const backdropPath = detail.backdrop_path;
+      document.body.style.backgroundImage = `url('https://image.tmdb.org/t/p/w1280${backdropPath}')`;
+
+      const listDetail = `
+      <div id="poster-info">
+        <header>${detail.title}</header>
+        <img id="poster" src="https://image.tmdb.org/t/p/w500${detail.poster_path}" alt="${detail.title}">
+        <div id="details">
+        <div id="release-date">${detail.release_date}, 평점 ${detail.vote_average}</div></div>
+      </div>
+      <p>${detail.overview}</p>`;
+$('#movieDetails').append(listDetail);
+}
+showMovieDetails();
+</script>
+
 </body>
-
 </html>
