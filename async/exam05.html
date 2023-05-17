@@ -17,7 +17,9 @@
 
 <body onload="loadMovies()">
     <header>Hari Cine :: ma, Igeo Boatna</header>
-    <div id="container"></div>
+    <div id="container">
+        
+    </div>
 
 
 
@@ -32,11 +34,11 @@
             //다수의 영화 저장
             const movies = data.results;
 
-
             //영화개별정보를 card에 저장.
             movies.forEach(movie => {
                 const rating = getRatingStars(movie.vote_average);
-                const card = `<div class="card" data-movieid="${movie.id}">
+                const card = `
+                <div class="card" data-movieid="${movie.id}">
                             <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
                             <div class="movie-details">
                                 <div id="movie-rate">${rating}</div>
