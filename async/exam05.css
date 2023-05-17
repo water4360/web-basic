@@ -20,14 +20,12 @@ body {
 
 /* MOVIE LIST */
 header {
-  /* background-color: linear-gradient(90deg, royalblue); */
-  position: sticky;
+  /* position: sticky; */
+  color:aliceblue;
   top: 0;
-  background: linear-gradient(0deg, black,royalblue);
   font-weight: 500;
   width: 100%;
   height: 150px;
-  color: #fff;
   padding: 10px;
   font-size: 80px;
   text-align: center;
@@ -40,7 +38,7 @@ header {
   /* width: 1000px; */
   width: 80%;
   height: 300px;
-  margin: 10px auto;
+  margin: 30px auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -51,12 +49,12 @@ header {
   width: 200px;
   height: 300px;
   /* padding: 10px; */
-  border-radius: ;
+  border-radius: 5px;
   cursor: pointer;
   display: flex;
   align-items: flex-start;
   position: relative;
-  /* background-color: yellow; */
+  /* background-color:black; */
   margin: 20px;
 }
 
@@ -72,24 +70,32 @@ header {
 
 /* 포스터에 마우스 올리면 */
 .card img:hover {
-  transform: scale(1.2);
+  transform: translateY(-15px);
   transition: transform 1s;
-  /* box-sizing: border-box; */
-  border: 8px solid royalblue;
+  box-sizing: border-box;
+  /* border: 8px solid royalblue; */
   z-index: 2;
-  filter: drop-shadow(0 0 0.5rem black);
+  filter: drop-shadow(0 0 2rem royalblue);
+}
+
+.card:hover .movie-details {
+  opacity: 1;
+  z-index: 3;
 }
 
 .movie-details {
+  opacity: 0;
+  
   position: absolute;
   bottom: 0px;
   box-sizing: border-box;
+  border-radius: 10px;
   width: 100%;
   height: 30%;
   padding: 10px 10px 5px 10px;
   /* font-size: 15px; */
   color: white;
-  background: linear-gradient(0deg, royalblue,black, transparent);
+  background: linear-gradient(0deg, black, black, transparent);
   /* font-weight:bolder; */
 }
 
@@ -99,24 +105,4 @@ header {
   font-size: 1.3rem;
   font-weight: 800;
   font-style: italic;
-}
-
-/* .card .movie-details {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.5s;
-} */
-
-.card h3 {
-  margin-top: 10px;
-  margin-bottom: 5px;
 }

@@ -16,7 +16,7 @@
 </head>
 
 <body onload="loadMovies()">
-    <header>Hari Cine, Ma Igeo Boatna</header>
+    <header>Hari Cine :: ma, Igeo Boatna</header>
     <div id="container"></div>
 
 
@@ -35,9 +35,11 @@
 
             //영화개별정보를 card에 저장.
             movies.forEach(movie => {
+                const rating = getRatingStars(movie.vote_average);
                 const card = `<div class="card" data-movieid="${movie.id}">
                             <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-                            <div class="movie-details"><div id="movie-rate">★평점 ${movie.vote_average}</div>
+                            <div class="movie-details">
+                                <div id="movie-rate">${rating}</div>
                             <div id="movie-title">${movie.title}</div></div></div>`;
                 $('#container').append(card);
             });
@@ -54,8 +56,21 @@
                 location.href = `exam05-2.html?movieId=${movieId}`;
             });
         }
+        // 평점을 ⭐로 표기
+        function getRatingStars(rating) {
+            const maxRating = 10; // 최대 평점
+            const star = '⭐'; // ⭐ 아이콘
+
+            if (rating === 0) {
+                return '첫 평가를 해주세요!';
+            }
+
+            const numberOfStars = Math.round((rating / maxRating) * 5); // 평점을 5개의 ⭐로 매핑
+            const stars = star.repeat(numberOfStars); // ⭐ 반복하여 문자열 생성
+
+            return stars;
+        }
     </script>
-    <footer></footer>
 </body>
 
 </html>
