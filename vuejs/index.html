@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Vue2버전인데, 23.12.31 지원종료 예정. Vue3 쓸것! -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <!-- 여기에 script를 작성하면 위 내용이 작성된 후 script 실행됨 -->
+    <script>
+        const app = new Vue({
+            // 중괄호 내부는 json형식.
+            // el = element의 약자. selector의 역할.
+            el: '#app',
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+    </script>
+
+</body>
+
+</html>
