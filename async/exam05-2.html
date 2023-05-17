@@ -1,29 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie info</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'SUIT-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'SUIT-Regular';
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        #movieDetails {
+            list-style: none;
+            padding: 0;
+        }
+
+        #movieDetails header {
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        #movieDetails img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        #movieDetails div {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        #movieDetails p {
+            text-align: center;
+        }
+    </style>
 </head>
-<body onload="getMovieInfo()">
-    <div id="movieDetails"></div>
+
+<body>
+    <ul id="movieDetails"></ul>
     <script>
         const params = new URLSearchParams(location.search);
         const movieId = params.get('movieId');
 
-        // $('#movieDetails').append
-
         async function showMovieDetails() {
             const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1`);
-            const details = await response.json();
+            const detail = await response.json();
 
-            details.forEach(detail => {
-                const listDetail = `<li><h4>${detail.title}</h4>
-                                    <p>${detail.overview}</p></li>`;
-            });
+            const listDetail = `<header>${detail.title}</header>
+                <img id="poster" src="https://image.tmdb.org/t/p/w500${detail.poster_path}" alt="${detail.title}">
+                <div id="release-date">${detail.release_date}, ${detail.vote_average}</div>
+                <p>${detail.overview}</p>`;
+            $('#movieDetails').append(listDetail);
         }
-        
+        showMovieDetails();
     </script>
 </body>
+
 </html>
