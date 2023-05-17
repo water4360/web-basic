@@ -6,7 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie info</title>
 </head>
-<body>
-    
+<body onload="getMovieInfo()">
+    <div id="movieDetails"></div>
+    <script>
+        const params = new URLSearchParams(location.search);
+        const movieId = params.get('movieId');
+
+        // $('#movieDetails').append
+
+        async function showMovieDetails() {
+            const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1`);
+            const details = await response.json();
+
+            details.forEach(detail => {
+                const listDetail = `<li><h4>${detail.title}</h4>
+                                    <p>${detail.overview}</p></li>`;
+            });
+        }
+        
+    </script>
 </body>
 </html>

@@ -16,7 +16,7 @@
 </head>
 
 <body onload="loadMovies()">
-    <header>MOVIE LIST</header>
+    <header>movie list</header>
     <div id="container"></div>
 
 
@@ -33,8 +33,7 @@
             movies.forEach(movie => {
                 const card = `<div class="card" data-movieid="${movie.id}">
                             <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-                            <button id="move-to-detail">상세보기</button>
-                            <div class="movie-details"><div id="movie-rate">평점 ${movie.vote_average}</div>
+                            <div class="movie-details"><div id="movie-rate">★평점 ${movie.vote_average}</div>
                             <div id="movie-title">${movie.title}</div></div></div>`;
                 $('#container').append(card);
             });
@@ -42,9 +41,11 @@
             // 버튼 숨기기 되긴 됨.
             // $('button').hide();
 
+
             //card를 클릭시 해당 영화 상세페이지로 이동.
             $('.card').click(function () {
                 const movieId = $(this).data('movieid');
+                
 
                 location.href = `https://www.themoviedb.org/movie/${movieId}`;
             });
