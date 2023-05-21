@@ -1,0 +1,109 @@
+/* @font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+} */
+
+@font-face {
+  font-family: 'SUIT-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  /* font-family: "Pretendard-Regular"; */
+  font-family: 'SUIT-Regular';
+  background-color: black;
+  margin: 0;
+}
+
+/* MOVIE LIST */
+header {
+  /* position: sticky; */
+  color:aliceblue;
+  top: 0;
+  font-weight: 500;
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  font-size: 80px;
+  text-align: center;
+  z-index: 5;
+}
+
+/* 전체 컨텐츠 소속 */
+#container {
+  /* background-color: aquamarine; */
+  /* width: 1000px; */
+  width: 80%;
+  height: 300px;
+  margin: 30px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* 개별 영화 */
+.card {
+  width: 200px;
+  height: 300px;
+  /* padding: 10px; */
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  /* background-color:black; */
+  margin: 20px;
+}
+
+/* 포스터 */
+.card img {
+  position: relative;
+  width: 200px;
+  /* height: 350px; */
+  /* margin-bottom: 30px; */
+  bottom: 0px;
+  border-radius: 10px;
+}
+
+/* 포스터에 마우스 올리면 */
+.card img:hover {
+  transform: translateY(-15px);
+  transition: transform 1s;
+  box-sizing: border-box;
+  /* border: 8px solid royalblue; */
+  z-index: 2;
+  filter: drop-shadow(0 0 2rem royalblue);
+}
+
+.card:hover .movie-details {
+  opacity: 1;
+  z-index: 3;
+}
+
+.movie-details {
+  opacity: 0;
+  
+  position: absolute;
+  bottom: 0px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 100%;
+  height: 30%;
+  padding: 10px 10px 5px 10px;
+  /* font-size: 15px; */
+  color: white;
+  background: linear-gradient(0deg, black, black, transparent);
+  /* font-weight:bolder; */
+}
+
+#movie-title {
+  position: absolute;
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  font-style: italic;
+}
